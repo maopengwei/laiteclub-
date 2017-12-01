@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>激活码列表</title>
+		<link rel="stylesheet" href="__STATIC__/pc/css/public.css" />
+		<link rel="stylesheet" type="text/css" href="__STATIC__/pc/css/head.css" />
+	</head>
+	<body>
+		{include file="layout/header" /}
+		<div class="wrapper">
+			<div class="top_title">激活码列表</div>
+			<table cellspacing="0" cellpadding="" class="table">
+				<tr>
+					<th>编号</th>
+					<th>用户账户1</th>
+					<th>用户账户2</th>
+					<th>类型</th>
+					<th>个数</th>
+					<th>时间</th>
+				</tr>
+				{volist name="list" id="v"}
+				<tr>
+					<td>{$v.id}</td>
+					<td>{$v['uid']}</td>
+					<td>{$v['uid_two']}</td>
+					<td>{$v.type}</td>
+					<td>{$v.num}</td>
+					<td>{$v.add_time|date="Y-m-d H:i:s",###}</td>
+				</tr>
+				{/volist}
+			</table>
+		</div>
+	</body>
+	<script src="__STATIC__/pc/js/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__STATIC__/mine/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__STATIC__/pc/js/nav.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		$(function() {
+		    $('.wealth').attr("id", "color_index").siblings().removeAttr("id");
+		})
+	</script>
+</html>

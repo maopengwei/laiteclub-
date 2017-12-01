@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="__STATIC__/mobile/css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="__STATIC__/mobile/css/register.css"/>
+		<title>账户管理</title>
+	</head>
+	<body>
+		<!--header-->
+		<div class="header">
+			<a href="/mobile/index/index.html" class="left"><img src="__STATIC__/mobile/img/return.png"/></a>
+			<span class="center">账户管理</span>
+			<a href="javascript:void(0)" class="right">
+				<img src="__STATIC__/mobile/img/menu_btn.png"  class="nav_img"/>	
+			</a>
+		</div> 
+		<!--banner-->
+		{include file="layout/banner" /}
+		
+
+		<div class="register_wrap">
+			<div class="register_top">
+				<p>个人资料</p>
+			</div>
+			<ul class="register_list">
+				<form>
+				<li>
+					<p>登录账号</p>
+					<input type="text" name="user" id="" value="{$info.user}" readonly style="background: #f5f5f5;"/>
+				</li>
+				<li>
+					<p>真实姓名</p>
+					<input type="text" name="theme" id="" value="{$info.theme}"  readonly style="background: #f5f5f5;"/>
+				</li>
+				<li>
+					<p>手机号码</p>
+					<input type="text" name="phone" id="" value="{$info.phone}" readonly style="background: #f5f5f5;"/>
+				</li>
+				<li>
+					<p>支付宝</p>
+					<input type="text" name="alipay" id="" value="{$info.alipay}" style="background: #f5f5f5;"/>
+				</li>
+				<li>
+					<p>银行名称</p>
+					<input type="text" name="bank_name" id="" value="{$info.bank_name}"  style="background: #f5f5f5;"/>
+				</li>
+				<li>
+					<p>银行账号</p>
+					<input type="text" name="card_number" id="" value="{$info.card_number}"  style="background: #f5f5f5;"/>
+				</li>
+				<li>
+					<p>银行开户地址</p>
+					<input type="text" name="bank_address" id="" value="{$info.bank_address}"  style="background: #f5f5f5;"/>
+				</li>
+				<li>
+					<p>微信号</p>
+					<input type="text" name="wechat" id="" value="{$info.wechat}" style="background: #f5f5f5;"/>
+				</li>
+				<li>
+					<p>地址</p>
+					<input type="text" name="address" id="" value="{$info.address}"/>
+				</li>
+				<li>
+					<p>二级密码</p>
+					<input type="password" name="second_pass" placeholder="二级密码"/>
+				</li>
+				<li>
+					<p id="tishi">注意：您的个人信息一旦填写后无法更改，请仔细核对后认真填写！如需要更改请联系客服。</p>
+				</li>
+				</form>
+				<li id="register_btn">
+					<button>
+					更新
+					</button>
+				</li>
+			</ul>
+			<p class="index_bottom">
+			<img src="__STATIC__/mobile/img/index_bottom.png"/>
+		</p>
+		</div>
+		</form>
+		
+		<!--菜单-->
+		{include file="layout/menu"}
+	</body>
+	<script src="__STATIC__/mobile/js/base.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__STATIC__/mobile/js/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__STATIC__/mobile/js/nav.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__STATIC__/mine/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+	    $('button').click(function(){
+	        console.log(1)
+	        $.ajax({
+	            type: "POST",
+	            url: "{:url('index')}",
+	            data: $("form").serialize(),
+	            success: function(data) {
+	                console.log(data)
+	                if(data.code=='1'){
+	                    setTimeout(function(){
+	                        location.href = data.url;
+	                    },1000);
+	                    layer.msg(data.msg);
+	                }else{
+	                    layer.msg(data.msg);
+	                }
+	            }
+	        });
+	    });
+
+	</script>
+</html>
+

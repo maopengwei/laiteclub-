@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>我的团队</title>
+		<link rel="stylesheet" href="__STATIC__/mobile/css/base.css" />
+		<link rel="stylesheet" type="text/css" href="__STATIC__/mobile/css/atlas.css"/>
+		<link rel="stylesheet" href="__STATIC__/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+	</head>
+	<body>
+		<!--header-->
+		<div class="header">
+			<a href="/mobile/index/index.html" class="left"><img src="__STATIC__/mobile/img/return.png"/></a>
+			<span class="center">我的团队</span>
+			<a href="javascript:void(0)" class="right">
+				<img src="__STATIC__/mobile/img/menu_btn.png"  class="nav_img"/>	
+			</a>
+		</div> 
+		<!--banner-->
+		{include file="layout/banner"}
+		<!--静态收益明细-->
+		
+		<div class="atlas_wrap">
+			<div class="atlas_top">
+				<p>团队图谱</p>
+			</div>
+			<div class="atlas_con">
+				<div class="zTreeDemoBackground ">
+					<ul id="treeDemo" class="ztree"></ul>
+                </div>
+			</div>
+			<p class="index_bottom">
+			<img src="__STATIC__/mobile/img/index_bottom.png"/>
+		</p>
+		</div>
+				<!--菜单-->
+		{include file="layout/menu" /}
+	</body>
+	<script src="__STATIC__/mobile/js/base.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__STATIC__/mobile/js/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__STATIC__/mobile/js/nav.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="__STATIC__/ztree/js/jquery.ztree.core.js"></script>
+	<script>
+		var setting = { 
+            view: { 
+                showLine: true 
+            }, 
+            data: { 
+                simpleData: { 
+                    enable: true 
+                } 
+            } 
+        }; 
+        $(function(){
+        	$.ajax({
+                type: "post",
+                dataType : "json",
+                global : false,
+                url : "getTreeso",
+                success : function(data){
+                    console.log(data);
+                    if (data.status == 0){
+                        zNodes = data.data;
+                        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+                    }else{
+                        alert(data.data);
+                    }
+                    return ;
+                }           
+            });
+        })
+	</script>
+</html>

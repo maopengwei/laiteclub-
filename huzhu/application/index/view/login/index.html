@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/pc/css/login.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/pc/js/style.css" />
+</head>
+
+<body>
+    <div class="denglu">
+        <div>
+            
+                <div class="login_wrap">
+                    <div class="login_top">
+                        <img src="__STATIC__/pc/img/logo1.png" />
+                    </div>
+                    <form class="login">
+                    <div class="name">
+                        <img src="__STATIC__/pc/img/user.png" class="user_img" />
+                        <input type="text" name="user" placeholder="请输入用户名" />
+                    </div>
+                    <div class="name">
+                        <img src="__STATIC__/pc/img/password.png" class="user_pass" />
+                        <input type="password" name="user_pass" placeholder="请输入密码" />
+                    </div>
+                    <div class="yzname">
+                        <input type="" name="code" placeholder="验证码" />
+                        <div class="ver_btn">
+                            <div><img src="{:captcha_src()}" alt="captcha" style="height:40px;width:120px;" onclick="this.src='{:captcha_src()}'"></div>
+                        </div>
+                        <!--验证码图片-->
+                        <div>
+                        </div>
+                    </div>
+                    </form>
+                    <p class="wjmima"><span class="cd-popup-trigger2">忘记密码?</span></p>
+                </div>
+                <button class="login_btn">登录</button>
+            
+        </div>
+    </div>
+    <!--弹框1-->
+    <div class="cd-popup2">
+        <div class="cd-popup-container2">
+            <form class="reset">
+                <div class="login_wrap">
+                    <div class="login_top">
+                        <img src="__STATIC__/pc/img/logo1.png" />
+                    </div>
+                    <div class="name" style="margin-top: 60px;">
+                        <img src="__STATIC__/pc/img/phone.png" class="user_pass" />
+                        <input type="text" name="phone" placeholder="请输入手机号" />
+                    </div>
+                    <div class="yzname" style="margin-top: 30px;">
+                        <input type="text" name="note_code" value="" placeholder="验证码" />
+                        <!--验证码图片-->
+                        <div>
+                            <a class="huoqu" onclick="gain()">获取</a>
+                        </div>
+                    </div>
+                </div>
+                <button class="pass_btn cd-popup-closeaaa  cd-popup-trigger20" id="chognzhi">重置密码</button>
+            </form>
+            <img src="__STATIC__/pc/img/close.png" class="cd-popup-close" />
+        </div>
+    </div>
+    <!--弹框2-->
+    <div class="cd-popup20">
+        <div class="cd-popup-container20">
+            <form class="queding">
+                <div class="login_wrap">
+                    <div class="login_top">
+                        <img src="__STATIC__/pc/img/logo1.png" />
+                    </div>
+                    <div class="name" style="margin-top: 60px;">
+                        <img src="__STATIC__/pc/img/password.png" class="user_pass" />
+                        <input type="password" name="user_pass" placeholder="输入新密码" />
+                        <input type="text" name="id" hidden>
+                    </div>
+                    <div class="name">
+                        <img src="__STATIC__/pc/img/password.png" class="user_pass" />
+                        <input type="password" name="pass1" placeholder="确认新密码" />
+                    </div>
+                </div>
+                <button class="pass_btn" id="queding">确认重置密码</button>
+            </form>
+            <img src="__STATIC__/pc/img/close.png" class="cd-popup-close20" />
+        </div>
+    </div>
+</body>
+<script src="__STATIC__/pc/js/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/mine/jquery/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/mine/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+/*弹框JS内容*/
+	jQuery(document).ready(function($) {
+
+	    //打开窗口
+	    $('.cd-popup-trigger2').on('click', function(event) {
+	        event.preventDefault();
+	        $('.cd-popup2').addClass('is-visible2');
+	        //$(".dialog-addquxiao").hide()
+	    });
+	    //关闭窗口
+	    $('.cd-popup2').on('click', function(event) {
+	        if ($(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup2') || $(event.target).is('.cd-popup-closeaaa')) {
+	            event.preventDefault();
+	            $(this).removeClass('is-visible2');
+	        }
+	    });
+	    //ESC关闭
+	    $(document).keyup(function(event) {
+	        if (event.which == '27') {
+	            $('.cd-popup2').removeClass('is-visible2');
+	        }
+	    });
+	});
+/*弹框JS内容*/
+	jQuery(document).ready(function($) {
+
+	    //打开窗口
+	    
+	    //关闭窗口
+	    $('.cd-popup20').on('click', function(event) {
+	        if ($(event.target).is('.cd-popup-close20') || $(event.target).is('.cd-popup20')) {
+	            event.preventDefault();
+	            $(this).removeClass('is-visible20');
+	        }
+	    });
+	    //ESC关闭
+	    $(document).keyup(function(event) {
+	        if (event.which == '27') {
+	            $('.cd-popup20').removeClass('is-visible20');
+	        }
+	    });
+	});
+//登录表单提交
+	 $('.login_btn').click(function(){
+        console.log(1)
+        $.ajax({
+            type: "POST",
+            url: "{:url('index')}",
+            data: $(".login").serialize(),
+            success: function(data) {
+                console.log(data)
+                if(data.code=='1'){
+                    setTimeout(function(){
+                        location.href = data.url;
+                    },1000);
+                    layer.msg(data.msg);
+                }else{
+                    layer.msg(data.msg);
+                }
+            }
+        });
+    });
+//忘记密码
+//发送短信验证码
+        function gain() {
+           $('.huoqu').removeAttr('onClick');
+           var data=$('input[name="phone"]').val();
+           requestAuthcode($('.huoqu'),data);
+       }
+        function countDown(obj, sec, oritxt, info) {
+            if (sec == 0)
+            {
+                obj.html(oritxt);
+                obj.attr('onClick','gain()');
+            }
+            else
+            {
+                obj.html(sec + info);
+                sec--;
+                setTimeout(function(){
+                    countDown(obj, sec, oritxt, info);
+                }, 1000);
+            }
+        }
+        function requestAuthcode(obj,aug) {
+            console.log(obj);
+            $.get("/index/login/sendSMS/?mobile="+aug, function(data){
+                layer.msg(data.msg);
+                if (data['status'] == 'failed'){
+                    $(obj).attr('onClick','gain()');
+                }else{
+                    countDown(obj, 60, '获取', '秒后获取');
+                }
+            }, "json");
+        }
+//重置密码验证码提交 
+    $('#chognzhi').click(function(){
+        console.log(123);
+        $.ajax({
+            type:"post",
+            url:"{:url('forget')}",
+            data : $('.reset').serialize(),
+            success:function(data){
+                console.log(data);
+                if(data.code==1){
+                    $('.cd-popup20').addClass('is-visible20');
+                    $('input[name="id"]').val(data.id);
+                    layer.msg(data.msg);
+                }
+                if(data.code==0){
+                    layer.msg(data.msg);
+                }
+                return false;
+            }
+        })
+        return false;
+    })
+//重置密码提交
+    $('#queding').click(function(){
+        console.log(123);
+        $.ajax({
+            type:"post",
+            url:"{:url('forgetcl')}",
+            data:$('.queding').serialize(),
+            success:function(data){
+                console.log(data);
+                if(data.code==1){
+                    setTimeout(function(){
+                        location.href = data.url;
+                    },1000);
+                    layer.msg(data.msg);
+                }
+                if(data.code==0){
+                    layer.msg(data.msg);
+                }
+                return false;
+            }
+        })
+        return false
+    })
+</script>
+
+</html>

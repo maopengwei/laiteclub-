@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>团队图谱</title>
+		<link rel="stylesheet" href="__STATIC__/pc/css/tuanduitupu.css" />
+		<link rel="stylesheet" type="text/css" href="__STATIC__/pc/css/head.css" />
+		<link rel="stylesheet" href="__STATIC__/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+	</head>
+	<body>
+		{include file="layout/header" /}
+		<div class="wrapper">
+			<div class="top_title">团队图谱</div>
+			<div class="atlas_con">
+				<div class="zTreeDemoBackground ">
+					<ul id="treeDemo" class="ztree"></ul>
+                </div>
+			</div>
+		</div>
+	</body>
+	<script src="__STATIC__/pc/js/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__STATIC__/pc/js/nav.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="__STATIC__/ztree/js/jquery.ztree.core.js"></script>
+	<script>
+		$(function() {
+		    $('.team').attr("id", "color_index").siblings().removeAttr("id");
+		})
+		var setting = { 
+            view: { 
+                showLine: true 
+            }, 
+            data: { 
+                simpleData: { 
+                    enable: true 
+                } 
+            } 
+        }; 
+        $(function(){
+        	$.ajax({
+                type: "post",
+                dataType : "json",
+                global : false,
+                url : "getTreeso",
+                success : function(data){
+                    console.log(data);
+                    if (data.status == 0){
+                        zNodes = data.data;
+                        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+                    }else{
+                        alert(data.data);
+                    }
+                    return ;
+                }           
+            });
+        })
+	</script>
+</html>

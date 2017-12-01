@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/mobile/css/base.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/mobile/css/register.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/mobile/js/style.css" />
+    <title>订单详情</title>
+    <style>
+    input {
+        outline: none;
+    }
+    </style>
+</head>
+
+<body>
+    <!--header-->
+    <div class="header">
+        <a href="javascript:history.go(-1)" class="left"><img src="__STATIC__/mobile/img/return.png"/></a>
+        <span class="center">订单详情</span>
+        <a href="javascript:void(0)" class="right">
+				<img src="__STATIC__/mobile/img/menu_btn.png"  class="nav_img"/>	
+			</a>
+    </div>
+    <!--banner-->
+    {include file="layout/banner" /}
+    <div class="register_wrap">
+        <div class="register_top">
+            <p>订单详情</p>
+        </div>
+        <ul class="register_list">
+            <form>
+                <li>
+                    <p>订单号</p>
+                    <input type="text" name="user" id="" value="{$order_info.p_id}" readonly style="background: #f5f5f5;" />
+                </li>
+                <li>
+                    <p>匹配时间</p>
+                    <input type="text" name="theme" id="" value="{$order_info.add_time|date='Y-m-d H:i:s',###}" readonly style="background: #f5f5f5;" />
+                </li>
+                <li>
+                    <p>对方账号</p>
+                    <input type="text" name="phone" id="" value="{$order_info.g_user}" readonly style="background: #f5f5f5;" />
+                </li>
+                <li>
+                    <p>对方姓名</p>
+                    <input type="text" name="phone" id="" value="{$user_info.theme}" readonly style="background: #f5f5f5;" />
+                </li>
+                <li>
+                    <p>手机号</p>
+                    <input type="text" name="phone" id="" value="{$user_info.phone}" readonly style="background: #f5f5f5;" />
+                </li>
+                <li>
+                    <p>银行名称</p>
+                    <input type="text" name="alipay" id="" value="{$user_info.bank_name}" style="background: #f5f5f5;" />
+                </li>
+                <li>
+                    <p>银行账号</p>
+                    <input type="text" name="card_number" id="" value="{$user_info.card_number}" style="background: #f5f5f5;" />
+                </li>
+                <li>
+                    <p>银行开户地址</p>
+                    <input type="text" value="{$user_info.bank_address}" style="background: #f5f5f5;" />
+                </li>
+                <li>
+                    <p>微信号</p>
+                    <input type="text" id="" value="{$user_info.wechat}" style="background: #f5f5f5;" />
+                </li>
+                <li>
+                    <p>支付宝</p>
+                    <input type="text" value="{$user_info.alipay}" style="background: #f5f5f5;" />
+                </li>
+                {if condition="$order_info.pay_time neq ''"}
+                <li>
+                    <p>打款时间</p>
+                    <input type="text" value="{$order_info.pay_time|date='Y-m-d H:i:s',###}" style="background: #f5f5f5;" />
+                </li>
+                {/if} {if condition="$order_info.receive_time neq ''"}
+                <li>
+                    <p>收款时间</p>
+                    <input type="text" value="{$order_info.receive_time|date='Y-m-d H:i:s',###}" style="background: #f5f5f5;" />
+                </li>
+                {/if} {if condition="$order_info.end_time neq ''"}
+                <li>
+                    <p>提款时间</p>
+                    <input type="text" id="" value="{$order_info.end_time|date='Y-m-d H:i:s',###}" style="background: #f5f5f5;" />
+                </li>
+                {/if} {if condition="$order_info.pic neq ''"}
+                <li>
+                    <p>打款凭证</p>
+                    <input type="text" name="pic" value="点击查看" style="background: #f5f5f5;" readonly class="cd-popup-triggerbb" />
+                </li>
+                {/if}
+                {if condition="$order_info.message neq ''"}
+                <li>
+                    <p>留言信息</p>
+                    <input type="text" value="{$order_info.message}" readonly />
+                </li>
+                {/if}
+                <!-- <img src="{$order_info.pic}" alt="" style="display:none;"> -->
+                <li></li>
+        </ul>
+        <p class="index_bottom">
+            <img src="__STATIC__/mobile/img/index_bottom.png" />
+        </p>
+    </div>
+    </form>
+    <style type="text/css">
+    .tk_img img {
+        width: 100%;
+        height: 100%;
+    }
+    </style>
+    <!--弹框-->
+    <div class="cd-popupbb">
+        <div class="cd-popup-containerbb">
+            <div class="tk_img" style="width: 100% ; height: 100%;">
+                <img src="{$order_info.pic}" style="display:block;">
+            </div>
+            <img src="__STATIC__/mobile/img/close1.png" class="cd-popup-closebb" />
+        </div>
+    </div>
+    <!--菜单-->
+    {include file="layout/menu"}
+</body>
+<script src="__STATIC__/mobile/js/base.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/mobile/js/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/mobile/js/nav.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/mine/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+<script>
+/*弹框JS内容*/
+jQuery(document).ready(function($) {
+
+    //打开窗口
+    $('.cd-popup-triggerbb').on('click', function(event) {
+        event.preventDefault();
+        $('.cd-popupbb').addClass('is-visiblebb');
+        //$(".dialog-addquxiao").hide()
+    });
+    //关闭窗口
+    $('.cd-popupbb').on('click', function(event) {
+        if ($(event.target).is('.cd-popup-closebb') || $(event.target).is('.cd-popupbb')) {
+            event.preventDefault();
+            $(this).removeClass('is-visiblebb');
+        }
+    });
+    //ESC关闭
+    $(document).keyup(function(event) {
+        if (event.which == '27') {
+            $('.cd-popupbb').removeClass('is-visiblebb');
+        }
+    });
+
+});
+</script>
+
+</html>

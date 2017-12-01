@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="__STATIC__/mobile/css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="__STATIC__/mobile/css/register.css"/>
+		<title>财务中心</title>
+		<style type="text/css">
+			#jhm_btn button{
+				 background: linear-gradient(to right, #4f8fff ,#39bafe);
+	width: 50%;
+	height: 0.7rem;
+	margin-left: 25%;
+	margin-top:1rem ;
+	margin-bottom:0.8rem ;
+	border-radius: 0.4rem;
+	font-size: 0.3rem;
+	color:#fff;
+	border:0;
+			}
+		</style>
+	</head>
+	<body>
+		<!--header-->
+		<div class="header">
+			<a href="/mobile/index/index.html" class="left"><img src="__STATIC__/mobile/img/return.png"/></a>
+			<span class="center">财务中心</span>
+			<a href="javascript:void(0)" class="right">
+				<img src="__STATIC__/mobile/img/menu_btn.png"  class="nav_img"/>	
+			</a>
+		</div> 
+		<!--banner-->
+		{include file="layout/banner" /}
+		<!--赠送激活码-->
+		
+
+		<div class="register_wrap">
+			<div class="register_top">
+				<p>赠送激活码</p>
+			</div>
+			<ul class="register_list">
+				<form>
+				<li>
+					<p>用户名</p>
+					<input type="text" name="user" onblur="search(this)" placeholder="输入对方账户名"/>
+				</li>
+				<li>
+					<p>真实姓名</p>
+					<input type="text" name="theme" value="" readonly />
+					<input type="text" name="id" hidden />
+				</li>
+				<li>
+					<p>激活码数量</p>
+					<input type="text" name="num" placeholder="输入激活码个数"/>
+				</li>
+				<li>
+					<p>二级密码</p>
+					<input type="password" name="second_pass" placeholder="输入二级密码"/>
+				</li>
+				</form>
+				<li id="jhm_btn">
+					<button>
+					确认赠送
+					</button>
+				</li>
+			</ul>
+			<p class="index_bottom">
+			<img src="__STATIC__/mobile/img/index_bottom.png"/>
+		</p>
+		</div>
+		
+		<!--菜单-->
+		{include file="layout/menu" /}
+	</body>
+	<script src="__STATIC__/mobile/js/base.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__STATIC__/mobile/js/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__STATIC__/mobile/js/nav.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__STATIC__/mine/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		function search(data){
+			var user = $(data).val();
+			$.ajax({
+	            type: "POST",
+	            url: "{:url('theme')}",
+	            data: {user:user},
+	            success: function(data) {
+	                console.log(data)
+	               	$('input[name="theme"]').val(data['theme']);
+	               	$('input[name="id"]').val(data['id']);
+	            }
+	        });
+		}
+		$('button').click(function(){
+			$('button').attr('disabled',true);
+			$.ajax({
+	            type: "POST",
+	            url: "{:url('transfer')}",
+	            data: $("form").serialize(),
+	            success: function(data) {
+	                console.log(data)
+	                if(data.code=='1'){
+	                    setTimeout(function(){
+	                        location.href = data.url;
+	                    },1000);
+	                    layer.msg(data.msg);
+	                }else{
+	                    layer.msg(data.msg);
+	                    $('button').removeAttr('disabled');
+	                }
+	            }
+	        });
+		});
+
+	</script>
+	
+</html>
+

@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>无标题文档</title>
+    <link href="__STATIC__/admin/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="__STATIC__/admin/css/select.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="__STATIC__/mine/jquery/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/admin/js/jquery.idTabs.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/admin/js/select-ui.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/admin/editor/kindeditor.js"></script>
+    <script type="text/javascript" src="__STATIC__/mine/layer/layer.js"></script>
+    <script type="text/javascript">
+    // KE.show({
+    //     id: 'content7',
+    //     cssPath: './index.css'
+    // });
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function(e) {
+        $(".select1").uedSelect({
+            width: 345
+        });
+        $(".select2").uedSelect({
+            width: 167
+        });
+        $(".select3").uedSelect({
+            width: 100
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <div class="place">
+        <span>位置：</span>
+        <ul class="placeul">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">提供列表</a></li>
+        </ul>
+    </div>
+    <div class="tools">
+        <ul class="toolbar" style="padding:3px;">
+            <li class="click"><span><img src="__STATIC__/admin/images/t01.png" /></span><a>接受列表</a></li>
+        </ul>
+        <ul class="toolbar1">
+            <li class="click"><span><img src="__STATIC__/admin/images/t04.png" /></span><a class="match" onclick="match()" >确定匹配</a></li>
+        </ul>
+    </div>
+    <div class="formbody">
+        <ul class="seachform">
+            <form action="sdpp" method="get">
+                <li>
+                    <label>用户</label>
+                    <input name="user" type="text" class="scinput" value="{$Think.get.user}" />
+                    <input name="jine" value="{$Think.get.jine}" />
+                </li>
+                <li>
+                    <label>提供单号</label>
+                    <input name="pay_number" type="text" class="scinput" value="{$Think.get.pay_number}" />
+                </li>
+                <li>
+                    <label>&nbsp;</label>
+                    <input type="submit" class="scbtn" value="查询" />
+                </li>
+            </form>
+            <script>
+            if ('{$Think.get.type}') {
+                $('form select[name="type"]').val('{$Think.get.type}');
+            }
+            if ('{$jine}') {
+                $('form input[name="jine"]').val('{$jine}');
+            }
+            if ('{$Think.get.jine}') {
+                $('form input[name="jine"]').val('{$Think.get.jine}');
+            }
+            </script>
+        </ul>
+        <p>·</p>
+        <p>提交金额：{$jine?:$Think.get.jine}</p><p>选中金额：<span class="jine"></span></p>
+        <table class="tablelist">
+            <thead>
+                <tr>
+                    <th onClick="order('id')">接受编号</th>
+                    <th>接受会员</th>
+                    <th onClick="order('jb')">接受金额</th>
+                    <th onClick="order('date')">接受时间</th>
+                    <th>拆分</th>
+                    <th>接受操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {volist name="list" id="v"}
+                    <tr>
+                        <td>{$v.receive_number}</td>
+                        <td>{$v.uid}</td>
+                        <td>{$v.jb}</td>
+                        <td>{$v.date|date="Y-m-d H:i:s",###}</td>
+                        <td>{$v.zt}</td>
+                        <td>
+                            <label>
+                                <input name="test1" type="checkbox" data-value="{$v.jb}" class="dfdfe1" onClick="save()" value="{$v.id}" />
+                            </label>
+                        </td>
+                    </tr>
+                {/volist}
+                <script type="text/javascript">
+                function save() {
+                    var num = parseInt(0)
+                    var chk_value = []
+                    $('input[name="test1"]:checked').each(function() {
+                        chk_value.push([$(this).val(), parseInt($(this).attr('data-value'))]);
+                    });
+                    for (var i = chk_value.length - 1; i >= 0; i--) {
+                        num += chk_value[i][1]
+                    }
+                    $('.jine').html(num);
+                }
+                if ('{$Think.get.tian1}') {
+                    $('form select[name="tian1"]').val('{$Think.get.tian1}');
+                }
+                if ('{$Think.get.tian2}') {
+                    $('form select[name="tian2"]').val('{$Think.get.tian2}');
+                }
+                if ('{$Think.get.user}') {
+                    $('form input[name="user"]').val('{$Think.get.user}');
+                }
+                </script>
+                <script>
+                function match() {
+                    $('.match').attr('onclick','');
+                    arr1 = JSON.parse(localStorage.arr1)
+                    var chk_value = []
+                    $('input[name="test1"]:checked').each(function() {
+                        chk_value.push([$(this).val(), parseInt($(this).attr('data-value'))]);
+                    });
+                    $.ajax({
+                        type: 'post',
+                        url: "{:url('match/matchcl')}",
+                        data: { arr1: arr1, arr2: chk_value },
+                        success: function(data) {
+                            if (data.code == '0') {
+                                layer.msg(data.msg);
+                                $('.match').attr('onclick','match()');
+                            }
+                            if (data.code == '1') {
+                                layer.msg(data.msg);
+                                setTimeout(function() {
+                                    location.href = "/admin/tgbz/index";
+                                }, 1000);
+                            }
+                        }
+                    });
+                }
+                </script>
+            </tbody>
+        </table>
+        <div>
+        </div>
+    </div>
+</body>
+
+</html>

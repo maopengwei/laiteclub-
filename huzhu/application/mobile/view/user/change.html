@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>修改密码</title>
+		<link rel="stylesheet" href="__STATIC__/mobile/css/base.css" />
+		<link rel="stylesheet" href="__STATIC__/mobile/css/change-pass.css" />
+	</head>
+	<body>
+		<!--header-->
+		<div class="header">
+			<a href="/mobile/index/index.html" class="left"><img src="__STATIC__/mobile/img/return.png"/></a>
+			<span class="center">修改密码</span>
+			<a href="javascript:void(0)" class="right">
+				<img src="__STATIC__/mobile/img/menu_btn.png"  class="nav_img"/>	
+			</a>
+		</div> 
+		<!--banner-->
+		{include file="layout/banner" /}
+		<!--修改账户密码-->
+		<div class="change_wrap">
+			<div class="change_top">
+				<p>登录密码</p>
+			</div>
+			<div class="change_list">
+				<form class="user_pass">
+					<p>原密码</p>
+					<input type="password" name="old_user_pass" />
+					<p>新密码</p>
+					<input type="password" name="user_pass" />
+					<p>确认密码</p>
+					<input type="password" name="pass1" />
+				</form>
+				<div id="line"></div>
+				<input type="button" class="change" value="更新" id="reload_btn" />
+			</div>
+		</div>
+		<!--修改安全密码-->
+		<div class="change_wrap">
+			<div class="change_top">
+				<p>二级密码</p>
+			</div>
+			<div class="change_list">
+				<form class="second_pass">
+					<p>原密码</p>
+					<input type="password" name="old_second_pass" />
+					<p>新密码</p>
+					<input type="password" name="second_pass" />
+					<p>确认密码</p>
+					<input type="password" name="pass2"/>
+				</form>	
+					<div id="line"></div>
+					<input type="button" class="update" value="更新" id="reload_btn2" />
+			</div>
+			
+		</div>
+		<p class="index_bottom">
+			<img src="__STATIC__/mobile/img/index_bottom.png"/>
+		</p>
+		<!--菜单-->
+		{include file="layout/menu"}
+	</body>
+	<script src="__STATIC__/mobile/js/base.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__STATIC__/mobile/js/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__STATIC__/mobile/js/nav.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__STATIC__/mine/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		$('.change').click(function(){
+			// $('button').attr('disabled',true);
+			$.ajax({
+	            type: "POST",
+	            url: "{:url('change_user_pass')}",
+	            data: $(".user_pass").serialize(),
+	            success: function(data) {
+	                console.log(data)
+	                if(data.code=='1'){
+	                    setTimeout(function(){
+	                        location.href = data.url;
+	                    },1000);
+	                    layer.msg(data.msg);
+	                }else{
+	                    layer.msg(data.msg);
+	                }
+	            }
+	        });
+		});
+		$('.update').click(function(){
+			// $('button').attr('disabled',true);
+			$.ajax({
+	            type: "POST",
+	            url: "{:url('change_second_pass')}",
+	            data: $(".second_pass").serialize(),
+	            success: function(data) {
+	                console.log(data)
+	                if(data.code=='1'){
+	                    setTimeout(function(){
+	                        location.href = data.url;
+	                    },1000);
+	                    layer.msg(data.msg);
+	                }else{
+	                    layer.msg(data.msg);
+	                }
+	            }
+	        });
+		});
+	</script>
+</html>
+

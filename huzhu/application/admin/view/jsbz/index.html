@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>无标题文档</title>
+    <link href="__STATIC__/admin/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="__STATIC__/admin/css/select.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="__STATIC__/mine/jquery/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/admin/js/jquery.idTabs.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/admin/js/select-ui.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/admin/editor/kindeditor.js"></script>
+    <script type="text/javascript" src="__STATIC__/mine/layer/layer.js"></script>
+    <script type="text/javascript">
+    // KE.show({
+    //     id: 'content7',
+    //     cssPath: './index.css'
+    // });
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function(e) {
+        $(".select1").uedSelect({
+            width: 345
+        });
+        $(".select2").uedSelect({
+            width: 167
+        });
+        $(".select3").uedSelect({
+            width: 100
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <div class="place">
+        <span>位置：</span>
+        <ul class="placeul">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">提供列表</a></li>
+        </ul>
+    </div>
+    <div class="tools">
+        <ul class="toolbar" style="padding:3px;">
+            <li class="click"><span><img src="__STATIC__/admin/images/t01.png" /></span><a class="sdpp" >手动匹配</a></li>
+        </ul>
+        <ul class="toolbar1">
+        </ul>
+    </div>
+    <div class="formbody">
+        <ul class="seachform">
+            <form action="index" method="get">
+                <li>
+                    <label>用户</label>
+                    <input name="user" type="text" class="scinput" value="{$Think.get.user}" />
+                </li>
+                <li>
+                    <label>提供单号</label>
+                    <input name="receive_number" type="text" class="scinput" value="{$Think.get.receive_number}" />
+                </li>
+                <li>
+                    <label>状态</label>
+                    <div class="vocation">
+                        <select class="select3" name="zt">
+                            <option value="0">未匹配</option>
+                            <option value="1">已匹配</option>
+                        </select>
+                    </div>
+                </li>
+                <li>
+                    <label>&nbsp;</label>
+                    <input type="submit" class="scbtn" value="查询" />
+                </li>
+            </form>
+            <script>
+            if ('{$Think.get.type}') {
+                $('form select[name="type"]').val('{$Think.get.type}');
+            }
+            </script>
+        </ul>
+        <p>·</p>
+        <p>总金额：{$num}</p><p>选中金额：<span class="jine"></span></p>
+        <table class="tablelist">
+            <thead>
+                <tr>
+                    <th onClick="order('id')">接受编号</th>
+                    <th>接受帮助会员</th>
+                    <th onClick="order('jb')">接受帮助金额</th>
+                    <th>拆分</th>
+                    <th>状态</th>
+                    <th onClick="order('date')">接受帮助时间</th>
+                    <th>接受帮助操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {volist name='list' id='v'}
+                    <tr>
+                        <td>{$v.receive_number}
+                            <a onClick="javascript:if(!confirm('确认要删除吗？'))  return  false; " href="del?id={$v.id}">删除</a>
+                        </td>
+                        <td>{$v.uid}</td>
+                        <td>{$v.jb}</td>
+                        <td>{$v.status}</td>
+                        <td>{$v.zt}</td>
+                        <td>{$v.date|date="Y-m-d H:i:s",###}</td>
+                        <td>
+                            <label>
+                                <input name="test1" type="checkbox" data-value="{$v.jb}" class="dfdfe1" onClick="save()" value="{$v.id}" />
+                            </label>
+                        </td>
+                    </tr>
+                {/volist}
+                </foreach>
+                <script type="text/javascript">
+                $(document).ready(function() {
+                    //清楚本地存储
+                    localStorage.clear();
+                });
+
+                function save() {
+                    var num = parseInt(0)
+                    var chk_value1 = []
+                    var array
+                    $('input[name="test1"]:checked').each(function() {
+                        chk_value1.push([$(this).val(), parseInt($(this).attr('data-value'))]);
+                    });
+                    for (var i = chk_value1.length - 1; i >= 0; i--) {
+                        num += chk_value1[i][1]
+                    }
+                    console.log(num);
+                    array = JSON.stringify(chk_value1);
+                    console.log(array);
+                    localStorage.arr1 = array;
+                    $('.jine').html(num);
+                    $('.sdpp').attr('href', '/admin/tgbz/sdpp?jine=' + num)
+                }
+
+                if ('{$Think.get.zt}') {
+                    $('form select[name="zt"]').val('{$Think.get.zt}');
+                }
+                // if('{$Think.get.first}'){
+                //   $('form input[name="first"]').val('{$Think.get.end}');
+                // }
+                // if('{$Think.get.end}'){
+                //   $('form input[name="end"]').val('{$Think.get.end}');
+                // }
+                if ('{$Think.get.user}') {
+                    $('form input[name="user"]').val('{$Think.get.user}');
+                }
+                </script>
+            </tbody>
+        </table>
+        <div>
+        </div>
+    </div>
+</body>
+
+</html>

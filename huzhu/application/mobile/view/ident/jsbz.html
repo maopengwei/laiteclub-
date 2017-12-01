@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>财务中心</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/mobile/css/base.css" />
+    <link rel="stylesheet" href="__STATIC__/mobile/css/index.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/mobile/css/invest_list.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/mobile/js/style.css" />
+    <style>
+        #color5 div:nth-child(2){
+            background-color: #E2C6FF;
+        }
+        #color6 div:nth-child(2){
+            background-color: #C6E2FF;
+        }
+        #color8 div:nth-child(2){
+            background-color: #FFE9C6;
+        }
+    </style>
+</head>
+
+<body>
+    <!--header-->
+    <div class="header">
+        <a href="/mobile/index/index.html" class="left"><img src="__STATIC__/mobile/img/return.png"/></a>
+        <span class="center">财务中心</span>
+        <a href="javascript:void(0)" class="right">
+            <img src="__STATIC__/mobile/img/menu_btn.png"  class="nav_img"/>    
+        </a>
+    </div>
+    {include file="layout/banner" /}
+    <!--投资订单-->
+    <div class="touzi_top">
+        <p>收益订单列表</p>
+    </div>
+    <ul class="dingdan">
+        <!--排队中-->
+        {volist name="list" id="v"}
+        {if condition="$v.zt eq 1"}<li id="color5">{/if}
+        {if condition="$v.zt eq 2"}<li id="color6">{/if}
+        {if condition="$v.zt eq 3"}<li id="color8">{/if}
+        {if condition="$v.zt eq 4"}<li id="color8">{/if}
+            <div class="dingdan_top">
+                <p>收益订单：<span>{$v.p_id}</span></p>
+            </div>
+            <div class="dingdan_con">
+                <p>收益者：<span class="number_color0">{$v.g_user}</span></p>
+                <p>投资金额：<span class="number_color1">{$v.jb}RMB</span></p>
+                <p>匹配时间：<span class="number_color0">{$v.add_time|date="Y-m-d H:i:s",###}</span></p>
+                <p>对方账号：<span class="number_color0">{$v.p_user}</span></p>
+                <p>状态：<span class="number_color1">
+                    {if condition="$v.zt eq 1"}等待打款{/if}
+                    {if condition="$v.zt eq 2"}未收款{/if}
+                    {if condition="$v.zt eq 3"}交易完成{/if}
+                    {if condition="$v.zt eq 4"}交易完成{/if}
+                </span></p>
+                <p>详情：<span class="number_color1" date-id="{$v.id}" onclick="detail($(this).attr('date-id'))" >点击查看</span></p>
+                {if condition="$v.zt eq 2"}
+                <button class="invest_btn0 cd-popup-triggeraa" date-id="{$v.id}" onclick="receive($(this).attr('date-id'))" >确认收款</button>
+                <button class="invest_btn0 cd-popup-triggeraa" date-id="{$v.id}" onclick="complain($(this).attr('date-id'))" >投诉?</button>
+                {/if}
+            </div>
+        </li>
+        {/volist}
+    </ul>
+    <p class="index_bottom">
+        <img src="__STATIC__/mobile/img/index_bottom.png" />
+    </p>
+    <!--图片-->
+    <!--弹框-->
+    <div class="cd-popupbb">
+        <div class="cd-popup-containerbb">
+            <div class="tk_img">
+            </div>
+            <img src="__STATIC__/mobile/img/close1.png" class="cd-popup-closebb" />
+        </div>
+    </div>
+    <!--菜单-->
+    {include file="layout/menu" /}
+</body>
+<script src="__STATIC__/mobile/js/base.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/mobile/js/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/mine/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/mobile/js/nav.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    //订单详情
+    function detail(data){
+        location.href="jsbz_detail?id="+data;
+    }
+    //确认收款
+    function receive(data){
+        layer.confirm('确定要收款么？', {
+          btn: ['确定', '取消'] //可以无限个按钮
+        }, function(index, layero){
+            console.log(12);
+            $.ajax({
+                type: "get",
+                url: "/mobile/jsbz/receive",
+                data: {id:data},
+                success: function(data) {
+                    console.log(data)
+                    if(data.code=='1'){
+                        setTimeout(function(){
+                            location.href = data.url;
+                        },1000);
+                        layer.msg(data.msg);
+                    }else{
+                        layer.msg(data.msg);
+                    }
+                    return false;
+                }
+            });
+        });
+    }
+    //投诉
+    function complain(data){
+        layer.confirm('确定要投诉么？', {
+          btn: ['确定', '取消'] //可以无限个按钮
+        }, function(index, layero){
+            $.ajax({
+                type: "get",
+                url: "/mobile/jsbz/complain",
+                data: {id:data},
+                success: function(data) {
+                    if(data.code=='1'){
+                        setTimeout(function(){
+                            location.href = data.url;
+                        },1000);
+                        layer.msg(data.msg);
+                    }else{
+                        layer.msg(data.msg);
+                    }
+                    return false;
+                }
+            });
+        });
+    }
+/*弹框JS内容*/
+jQuery(document).ready(function($) {
+    //打开窗口
+    $('.cd-popup-triggeraa').on('click', function(event) {
+        event.preventDefault();
+        $('.cd-popupaa').addClass('is-visibleaa');
+        //$(".dialog-addquxiao").hide()
+    });
+    //关闭窗口
+    $('.cd-popupaa').on('click', function(event) {
+        if ($(event.target).is('.cd-popup-closeaa') || $(event.target).is('.cd-popupaa')) {
+            event.preventDefault();
+            $(this).removeClass('is-visibleaa');
+        }
+    });
+    //ESC关闭
+    $(document).keyup(function(event) {
+        if (event.which == '27') {
+            $('.cd-popupaa').removeClass('is-visibleaa');
+        }
+    });
+});
+/*弹框JS内容*/
+jQuery(document).ready(function($) {
+    //打开窗口
+    $('.cd-popup-trigger2').on('click', function(event) {
+        event.preventDefault();
+        $('.cd-popup2').addClass('is-visible2');
+        //$(".dialog-addquxiao").hide()
+    });
+    //关闭窗口
+    $('.cd-popup2').on('click', function(event) {
+        if ($(event.target).is('.cd-popup-close2') || $(event.target).is('.cd-popup2') || $(event.target).is('.cd-popup-close-img')) {
+            event.preventDefault();
+            $(this).removeClass('is-visible2');
+        }
+    });
+    //ESC关闭
+    $(document).keyup(function(event) {
+        if (event.which == '27') {
+            $('.cd-popup2').removeClass('is-visible2');
+        }
+    });
+});
+/*弹框JS内容*/
+jQuery(document).ready(function($) {
+    //打开窗口
+    $('.cd-popup-triggerbb').on('click', function(event) {
+        event.preventDefault();
+        $('.cd-popupbb').addClass('is-visiblebb');
+        //$(".dialog-addquxiao").hide()
+    });
+    //关闭窗口
+    $('.cd-popupbb').on('click', function(event) {
+        if ($(event.target).is('.cd-popup-closebb') || $(event.target).is('.cd-popupbb')) {
+            event.preventDefault();
+            $(this).removeClass('is-visiblebb');
+        }
+    });
+    //ESC关闭
+    $(document).keyup(function(event) {
+        if (event.which == '27') {
+            $('.cd-popupbb').removeClass('is-visiblebb');
+        }
+    });
+});
+</script>
+
+</html>

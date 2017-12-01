@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta charset="UTF-8">
+    <title>财务中心</title>
+    <link rel="stylesheet" href="__STATIC__/mobile/css/base.css" />
+    <link rel="stylesheet" href="__STATIC__/mobile/css/activation-code.css" />
+</head>
+
+<body>
+    <div class="header">
+        <a href="/mobile/index/index.html" class="left"><img src="__STATIC__/mobile/img/return.png"/></a>
+        <span class="center">财务中心</span>
+        <a href="javascript:void(0)" class="right">
+				<img src="__STATIC__/mobile/img/menu_btn.png"  class="nav_img"/>	
+			</a>
+    </div>
+    <!--banner-->
+    {include file="layout/banner"}
+    <!--激活会员-->
+    <div class="activation_wrap">
+        <div class="activation_top">
+            <p>排单币列表</p>
+        </div>
+        <ul class="activation_list1">
+        	{volist name="list" id="v"}
+            <li>
+                <p>
+                    <span class="activation_left">编号</span>
+                    <span class="activation_right">{$v.id}</span>
+                </p>
+                <p>
+                    <span class="activation_left">账户1</span>
+                    <span class="activation_right">{$v.uid}</span>
+                </p>
+                {if condition="$v.uid_two neq ''"}
+                <p>
+                    <span class="activation_left">账号2</span>
+                    <span class="activation_right">{$v.uid_two}</span>
+                </p>
+                {/if}
+                <p>
+                    <span class="activation_left">类型</span>
+                    <span class="activation_right" style="color:#ff5454; ;">
+                    {$v.type}
+                	</span>
+                </p>
+                <p>
+                    <span class="activation_left">个数</span>
+                    <span class="activation_right">{$v.num}</span>
+                </p>
+                <p>
+                    <span class="activation_left">时间</span>
+                    <span class="activation_right">{$v.add_time|date="Y-m-d H:i:s",###}</span>
+                </p>
+            </li>
+            {/volist}
+        </ul>
+        <p class="index_bottom">
+            <img src="__STATIC__/mobile/img/index_bottom.png" />
+        </p>
+    </div>
+    <!--菜单-->
+    {include file="layout/menu" /}
+</body>
+<script src="__STATIC__/mobile/js/base.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/mobile/js/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/mobile/js/nav.js" type="text/javascript" charset="utf-8"></script>
+
+</html>

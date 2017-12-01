@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>账户管理</title>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/pc/css/invest_list.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/pc/js/style3.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/pc/css/head.css" />
+    <style>
+        #color1 div:nth-child(2){
+            background-color: #82ECFF;
+        }
+        #color2 div:nth-child(2){
+            background-color: #A2FF82;
+        }
+        #color3 div:nth-child(2){
+            background-color: #EFFF82;
+        }
+        #color4 div:nth-child(2){
+            background-color: #FF9782;
+        }
+        #preview img{
+            margin-left: 10%;
+                width: 70%;
+        height: 400px;
+        }
+</style>
+</head>
+
+<body>
+    {include file="layout/header" /}
+    <div class="wrapper">
+        <div class="top_title">投资订单列表</div>
+        <!--投资订单-->
+        <ul class="dingdan">
+            {volist name="list" id="v"}
+                {if condition="$v.zt eq 1"}<li id="color1">{/if}
+                {if condition="$v.zt eq 2"}<li id="color2">{/if}
+                {if condition="$v.zt eq 3"}<li id="color3">{/if}
+                {if condition="$v.zt eq 4"}<li id="color4">{/if}
+                <div class="dingdan_top">
+                    <p>投资订单：<span>{$v.p_id}</span></p>
+                </div>
+                <div class="dingdan_con">
+                    <p>投资者：<span class="number_color0">{$v.p_user}</span></p>
+                    <p>投资金额：<span class="number_color1">{$v.jb}RMB</span></p>
+                    <p>匹配时间：<span class="number_color0">{$v.add_time|date="Y-m-d H:i:s",###}</span></p>
+                    {if condition="$v.zt eq 3"}
+                    <p>提款时间：<span class="number_color0">{$v.end_time|date="Y-m-d H:i:s",###}</span></p>
+                    {/if}
+                    <p>对方账号：<span class="number_color0">{$v.p_user}</span></p>
+                    <p>状态：<span class="number_color1">
+                        {if condition="$v.zt eq 1"}未打款{/if}
+                        {if condition="$v.zt eq 2"}等待收款{/if}
+                        {if condition="$v.zt eq 3"}待提款{/if}
+                        {if condition="$v.zt eq 4"}交易完成{/if}
+                    </span></p>
+                    <p>详情：<span class="number_color0" date-id="{$v.id}" onclick="detail($(this).attr('date-id'))">点击查看</span></p>
+                    {if condition="$v.zt eq 1"}
+                    <div class="invest_listBtn  cd-popup-triggeraa" date-id="{$v.id}" onclick="dakuan($(this).attr('date-id'))">上传截图确认</div>
+                    {/if}
+                    {if condition="$v.zt eq 2"}
+                    <div class="invest_listBtn">等待对方收款</div>
+                    {/if}
+                    {if condition="$v.zt eq 3"}
+                    <div class="invest_listBtn">等待提款</div>
+                    {/if}
+                    {if condition="$v.zt eq 4"}
+                    <div class="invest_listBtn">交易完成</div>
+                    {/if}
+                </div>
+            </li>
+            {/volist}
+        </ul>
+    </div>
+    <!--确认打款弹框-->
+    <div class="cd-popupaa">
+        <div class="cd-popup-containeraa">
+            <p class="pingzheng">上传支付凭证</p>
+            <form action="/index/tgbz/dakuan" enctype="multipart/form-data" method="post">
+                <div id="preview"></div>
+                <div class="proof">
+                    点击上传支付凭证
+                    <input type="file" name="img" onchange="preview(this)" value="" />
+                </div>
+                <input name='id' value="" hidden>
+                <p class="liu">留言</p>
+                <textarea name="message" rows="" cols="" class="liuyan_text"></textarea>
+                <button class="liuyan_btn">确定</button>
+            </form>
+            <img src="__STATIC__/pc/img/close1.png" class="cd-popup-closeaa" />
+        </div>
+    </div>
+    <!--图片-->
+    <!--弹框-->
+    <div class="cd-popupbb">
+        <div class="cd-popup-containerbb">
+            <div class="tk_img">
+            </div>
+            <img src="__STATIC__/pc/img/close1.png" class="cd-popup-closebb" />
+        </div>
+    </div>
+</body>
+<script src="__STATIC__/pc/js/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/mine/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/pc/js/nav.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+/*弹框JS内容*/
+jQuery(document).ready(function($) {
+    $('.wealth').attr("id", "color_index").siblings().removeAttr("id");
+    //打开窗口
+    $('.cd-popup-triggeraa').on('click', function(event) {
+        event.preventDefault();
+        $('.cd-popupaa').addClass('is-visibleaa');
+        //$(".dialog-addquxiao").hide()
+    });
+    //关闭窗口
+    $('.cd-popupaa').on('click', function(event) {
+        if ($(event.target).is('.cd-popup-closeaa') || $(event.target).is('.cd-popupaa')) {
+            event.preventDefault();
+            $(this).removeClass('is-visibleaa');
+        }
+    });
+    //ESC关闭
+    $(document).keyup(function(event) {
+        if (event.which == '27') {
+            $('.cd-popupaa').removeClass('is-visibleaa');
+        }
+    });
+
+});
+    function detail(data){
+        console.log(data);
+        location.href="tgbz_detail?id="+data;
+    }
+    function dakuan(data){
+        console.log(data);
+        $('input[name="id"]').val(data);
+    }
+    function preview(file){  
+        $('.proof').attr('style','display:none;');
+        var prevDiv = document.getElementById('preview');  
+        if (file.files && file.files[0]){  
+             var reader = new FileReader();  
+             reader.onload = function(evt){  
+             prevDiv.innerHTML = '<img src="' + evt.target.result + '" />';  
+        }    
+            reader.readAsDataURL(file.files[0]);  
+        }else{
+              
+            prevDiv.innerHTML = '<div class="img" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>';  
+         }  
+     }
+</script>
+
+</html>

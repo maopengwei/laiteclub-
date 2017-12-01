@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>无标题文档</title>
+    <link href="__STATIC__/admin/css/style.css" rel="stylesheet" type="text/css" />
+    <script language="JavaScript" src="__STATIC__/admin/js/jquery.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        //导航切换
+        $(".menuson li").click(function() {
+            $(".menuson li.active").removeClass("active")
+            $(this).addClass("active");
+        });
+
+        $('.title').click(function() {
+            var $ul = $(this).next('ul');
+            $('dd').find('ul').slideUp();
+            if ($ul.is(':visible')) {
+                $(this).next('ul').slideUp();
+            } else {
+                $(this).next('ul').slideDown();
+            }
+        });
+    })
+    </script>
+</head>
+
+<body style="background:#f0f9fd;">
+    <div class="lefttop"><span></span>后台列表</div>
+    <dl class="leftmenu">
+        <dd>
+            <div class="title">
+                <span><img src="__STATIC__/admin/images/leftico01.png" /></span>网站会员
+            </div>
+            <ul class="menuson">
+                <li>
+                    <cite></cite><a href="/admin/admin/index.html" target="rightFrame">管理员</a><i></i></li>
+                <li>
+                    <cite></cite><a href="/admin/user/index.html" target="rightFrame">用户</a><i></i></li>
+                <li>
+                    <cite></cite><a href="/admin/team/index.html" target="rightFrame">团队</a><i></i></li>
+            </ul>
+        </dd>
+        <dd>
+            <div class="title">
+                <span><img src="__STATIC__/admin/images/leftico02.png" /></span>赠送
+            </div>
+            <ul class="menuson">
+                <li>
+                    <cite></cite><a href="/admin/pdb/index.html" target="rightFrame">排单币</a><i></i></li>
+                <li>
+                    <cite></cite><a href="/admin/jhm/index.html" target="rightFrame">激活码</a><i></i></li>
+                <li>
+                    <cite></cite><a href="/admin/pay/index.html" target="rightFrame">充值</a><i></i></li>
+                <li>
+                    <cite></cite><a href="/admin/receive/index.html" target="rightFrame">提现</a><i></i></li>
+            </ul>
+        </dd>
+        <dd>
+            <div class="title"><span><img src="__STATIC__/admin/images/leftico03.png" /></span>未匹配</div>
+            <ul class="menuson">
+                <li>
+                    <cite></cite><a href="/admin/tgbz/index.html" target="rightFrame">充值单列表</a><i></i></li>
+                <li>
+                    <cite></cite><a href="/admin/tgbz/split.html" target="rightFrame">拆分充值</a><i></i></li>
+                <li>
+                    <cite></cite><a href="/admin/jsbz/index.html" target="rightFrame">提现单列表</a><i></i></li>
+                <li>
+                    <cite></cite><a href="/admin/jsbz/split.html" target="rightFrame">拆分提现</a><i></i></li>
+                <li>
+                    <cite></cite><a href="/admin/match/index.html" target="rightFrame">手动匹配</a><i></i></li>
+            </ul>
+        </dd>
+        <dd>
+            <div class="title"><span><img src="__STATIC__/admin/images/leftico04.png" /></span>匹配列表</div>
+            <ul class="menuson">
+                <li>
+                    <cite></cite><a href="/admin/ident/list_weidakuan.html" target="rightFrame">未打款</a><i></i></li>
+                <li>
+                    <cite></cite><a href="/admin/ident/list_weishoukuan.html" target="rightFrame">未收款</a><i></i></li>
+                <li>
+                    <cite></cite><a href="/admin/ident/list_yiwancheng.html" target="rightFrame">交易完成</a><i></i></li>
+                 <li>
+                    <cite></cite><a href="/admin/ident/list_complain.html" target="rightFrame">投诉</a><i></i></li>
+                <li>
+                    <cite></cite><a href="/admin/ident/over_dakuan.html" target="rightFrame">超时不打款</a><i></i></li>
+                <li>
+                    <cite></cite><a href="/admin/ident/over_shoukuan.html" target="rightFrame">超时不收款</a><i></i></li>
+                
+            </ul>
+        </dd>
+        <dd>
+            <div class="title"><span><img src="__STATIC__/admin/images/leftico01.png" /></span>留言公告</div>
+            <ul class="menuson">
+                <li>
+                    <cite></cite><a href="/admin/news/index.html" target="rightFrame">新闻公告</a><i></i></li>
+                <li>
+                    <cite></cite><a href="/admin/news/relation.html" target="rightFrame">后台留言</a><i></i></li>
+            </ul>
+        </dd>
+    </dl>
+</body>
+
+</html>

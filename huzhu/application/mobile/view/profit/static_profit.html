@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>财务中心</title>
+		<link rel="stylesheet" href="__STATIC__/mobile/css/base.css" />
+		<link rel="stylesheet" href="__STATIC__/mobile/css/j-profit.css" />
+	</head>
+	<body>
+		<!--header-->
+		<div class="header">
+			<a href="javascript:history.go(-1)" class="left"><img src="__STATIC__/mobile/img/return.png"/></a>
+			<span class="center">财务中心</span>
+			<a href="javascript:void(0)" class="right">
+				<img src="__STATIC__/mobile/img/menu_btn.png"  class="nav_img"/>	
+			</a>
+		</div> 
+		<!--banner-->
+		{include file="layout/banner" /}
+		<!--静态收益明细-->
+		<div class="profit_wrap">
+			<div class="profit_top">
+				<p>静态收益明细</p>
+			</div>
+			<ul>
+				{volist name="list" id="v"}
+				<li class="profit_list">
+
+					<div class="tit_area">
+						<img src="__STATIC__/mobile/img/tit-bg.png"/ class="tit_bg">
+						<span class="tit_txt">{$v.i}</span>
+					</div>
+					
+					<p>
+						<span class="left_txt">编号</span>
+						<span class="right_txt">{$v.id}</span>
+					</p>
+					<p>
+						<span class="left_txt">用户账号</span>
+						<span class="right_txt">{$v.uid}</span>
+					</p>
+					<p>
+						<span class="left_txt">{$v.type}</span>
+						<span class="right_txt">{$v.jb}</span>
+					</p>
+					<p>
+						<span class="left_txt">时间</span>
+						<span class="right_txt">{$v.add_time|date="Y-m-d H:i:s",###}</span>
+					</p>
+				</li>
+				{/volist}
+			</ul>
+			<p class="index_bottom">
+			<img src="__STATIC__/mobile/img/index_bottom.png"/>
+		</p>
+		</div>
+		
+		<!--菜单-->
+		{include file="layout/menu"}
+	</body>
+	<script src="__STATIC__/mobile/js/base.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__STATIC__/mobile/js/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__STATIC__/mobile/js/nav.js" type="text/javascript" charset="utf-8"></script>
+	
+</html>
+

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>注册会员</title>
+    <link rel="stylesheet" href="__STATIC__/pc/css/zhucehuiyuan.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/pc/css/head.css" />
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="top_title">注册会员</div>
+        <form class="search_area">
+            <div class="con_left">
+                <div class="search_list">
+                    <span class="search_txt">登录账号</span>
+                    <input type="text" class="search_input" name="user" placeholder="4-16位字母数字" />
+                </div>
+                <div class="search_list">
+                    <span class="search_txt">真实姓名</span>
+                    <input type="text" class="search_input" name="theme" placeholder="真实姓名" />
+                </div>
+                <div class="search_list">
+                    <span class="search_txt">手机号码</span>
+                    <input type="text" class="search_input" name="phone" placeholder="11位数手机号码" />
+                </div>
+                <div class="search_list">
+                    <span class="search_txt">推荐人账号</span>
+                    <input type="text" class="search_input" value="{$user.user}" readonly />
+                    <input type="text" class="search_input" name="pid" value="{$user.id}" hidden />
+                </div>
+                <div class="search_list">
+                    <span class="search_txt">手机验证码</span>
+                    <input type="text" class="search_input1" name="note_code" placeholder="手机验证码" />
+                    <a class="search_btn" onclick="gain()">获取</a>
+                </div>
+            </div>
+            <div class="con_right">
+                <div class="search_list">
+                    <span class="search_txt">登录密码</span>
+                    <input type="password" class="search_input" placeholder="登录密码" name="user_pass" />
+                </div>
+                <div class="search_list">
+                    <span class="search_txt">确认登录密码</span>
+                    <input type="password" class="search_input" placeholder="确认登录密码" name="pass1" />
+                </div>
+                <div class="search_list">
+                    <span class="search_txt">二级密码</span>
+                    <input type="password" class="search_input" placeholder="二级密码" name="second_pass" />
+                </div>
+                <div class="search_list">
+                    <span class="search_txt">确认二级密码</span>
+                    <input type="password" class="search_input" placeholder="确认二级密码" name="pass2" />
+                </div>
+            </div>
+            <div class="con_btm">
+                <p class="warm_txt"><img src="__STATIC__/pc/img/choose.png" alt="" class="choose_btn" />温馨提示：投资有风险，请勿跟风投机，请用闲散资金参与。</p>
+                <hr />
+            </div>
+            <input type="button" onclick="return register()" class="zhuce_btn" value="注册" />
+    </div>
+    </form>
+</body>
+<script src="__STATIC__/pc/js/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/mine/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/pc/js/nav.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+//导航选中
+$(function() {
+    $('.register').attr("id", "color_index").siblings().removeAttr("id");
+})
+//获取验证码
+function gain() {
+    $('.search_btn').removeAttr('onclick');
+    var data = $('input[name="phone"]').val();
+    requestAuthcode($('.search_btn'), data);
+}
+//发送手机短信验证码
+function requestAuthcode(obj, aug) {
+    $.get("/index/login/sendSMS/?mobile=" + aug, function(data) {
+        layer.msg(data.msg);
+        if (data['status'] == 'failed') {
+            $(".search_btn").attr('onclick', 'gain()');
+        } else {
+            countDown(obj, 60, '获取', '秒后获取');
+        }
+    },"json");
+}
+//验证码60秒递减
+function countDown(obj, sec, oritxt, info) {
+    if (sec == 0) {
+        obj.text(oritxt);
+        obj.attr('onClick', 'gain()');
+    } else {
+        obj.text(sec + info);
+        sec--;
+        setTimeout(function() {
+            countDown(obj, sec, oritxt, info);
+        }, 1000);
+    }
+}
+//注册提交
+function register() {
+    console.log(12);
+    $('.zhuce_btn').removeAttr('onclick');
+    $.ajax({
+        type: "POST",
+        url: "{:url('register')}",
+        data: $('.search_area').serialize(),
+        success: function(data) {
+            console.log(data);
+            if(data.code==1){
+                setTimeout(function(){
+                    location.href=data.url;
+                },1000)
+                layer.msg(data.msg);
+            }else{
+                layer.msg(data.msg);
+                $('.zhuce_btn').attr('onclick','return register()');
+            }
+        }
+    })
+    return false;
+}
+</script>
+
+</html>

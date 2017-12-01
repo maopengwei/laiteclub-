@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>后台留言</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/mobile/CSS/base.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/mobile/css/invest_list.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/mobile/css/message.css" />
+</head>
+
+<body>
+    <!--header-->
+    <div class="header">
+        <a href="/mobile/index/index.html" class="left"><img src="__STATIC__/mobile/img/return.png"/></a>
+        <span class="center">后台留言</span>
+        <a href="javascript:void(0)" class="right">
+				<img src="__STATIC__/mobile/img/menu_btn.png"  class="nav_img"/>	
+			</a>
+    </div>
+    {include file="layout/banner" /}
+    <!--后台留言-->
+    <div class="touzi_top">
+        <p>后台留言</p>
+    </div>
+    <ul class="message_list">
+        <form>
+            <li>
+                <p>用户账号</p>
+                <input type="text" name="user" value="{$info.user}" readonly />
+            </li>
+            <li>
+                <p>联系方式</p>
+                <input type="text" name="phone" value="{$info.phone}" readonly />
+            </li>
+            <li>
+                <textarea name="content"></textarea>
+            </li>
+            <li>
+                <div></div>
+            </li>
+        </form>
+        <li>
+            <button>留言</button>
+        </li>
+    </ul>
+    </form>
+    <p class="index_bottom">
+        <img src="__STATIC__/mobile/img/index_bottom.png" />
+    </p>
+    <!--菜单-->
+    {include file="layout/menu" /}
+</body>
+<script src="__STATIC__/mobile/js/base.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/mobile/js/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/mobile/js/nav.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/mine/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	$('button').click(function(){
+		// $('button').attr('disabled',true);
+		$.ajax({
+            type: "POST",
+            url: "{:url('relation')}",
+            data: $("form").serialize(),
+            success: function(data) {
+                if(data.code=='1'){
+                    setTimeout(function(){
+                        location.href = data.url;
+                    },1000);
+                    layer.msg(data.msg);
+                }else{
+                    layer.msg(data.msg);
+                }
+            }
+    	});
+	});
+</script>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/mobile/css/base.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/mobile/css/login.css" />
+    <title>登录</title>
+    <style>
+        body{
+            position: relative;
+        }
+         .login_bottom{
+            position: absolute;
+            bottom:0.5rem;
+            right: 0.5rem;
+            width: 30%;
+            display: flex;
+            justify-content: space-between;
+         }
+    </style>
+</head>
+
+<body>
+    <div class="login_top">
+        <img src="__STATIC__/mobile/img/logo.png" />
+    </div>
+    <div class="login_wrap">
+            <!-- <div class="login_p">
+                <p>用户名或密码输入错误</p>
+            </div> -->
+        <form>
+        <div class="login_input login_input0">
+            <img src="__STATIC__/mobile/img/user.png" alt="" />
+            <input type="text" placeholder="输入用户名" name="user" />
+        </div>
+        <div class="login_input">
+            <img src="__STATIC__/mobile/img/password.png" alt=""  />
+            <input type="password" placeholder="输入密码" name="user_pass"/>
+        </div>
+        <div class="ver_wrap">
+            <div class="ver_input">
+                <img src="__STATIC__/mobile/img/verification.png" alt=""  />
+                <input type="text" placeholder="验证码" name="code"/>
+            </div>
+            <div class="ver_btn">
+                <div><img src="{:captcha_src()}" alt="captcha" style="height:0.7rem;width:2.6rem;" onclick="this.src='{:captcha_src()}'"></div>
+            </div>
+        </div>
+        </form>
+        <p class="login_forget"><a href="forget.html">忘记密码?</a></p>
+        <div class="login_btn">
+            <img src="__STATIC__/mobile/img/login.png" />
+            <input type="button" />
+        </div>
+    </div>
+    <div class="login_bottom">
+        <a href="app">安卓版</a>
+        <a href="apple_app">苹果版</a>
+   </div>
+</body>
+<script src="__STATIC__/mobile/js/base.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/mine/jquery/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/mine/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    $('input[type="button"]').click(function(){
+        console.log(1)
+        $.ajax({
+            type: "POST",
+            url: "{:url('index')}",
+            data: $("form").serialize(),
+            success: function(data) {
+                console.log(data)
+                if(data.code=='1'){
+                    setTimeout(function(){
+                        location.href = data.url;
+                    },1000);
+                    layer.msg(data.msg);
+                }else{
+                    layer.msg(data.msg);
+                }
+            }
+        });
+    });
+
+</script>
+
+</html>

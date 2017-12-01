@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>后台留言</title>
+		<link rel="stylesheet" href="__STATIC__/pc/css/houtailiuyan.css" />
+		<link rel="stylesheet" type="text/css" href="__STATIC__/pc/css/head.css" />
+	</head>
+	<body>
+		{include file="layout/header" /}
+		<div class="wrapper">
+			<div class="top_title">后台留言</div>
+			<form action="" class="search_area">
+				<div class="search_list">
+					<span class="search_txt">用户账号</span>
+					<input type="text" class="search_input" name="user" value="{$info.user}" readonly />
+				</div>
+				<div class="search_list">
+					<span class="search_txt">联系方式</span>
+					<input type="text" class="search_input" name="phone" value="{$info.phone}" readonly />
+				</div>
+				<div class="search_list2">
+					<span class="search_txt">留言</span>
+					<textarea name="content" rows="" cols=""></textarea>
+				</div>
+				<div class="search_list">
+					<input type="button" class="search_btn" value="留言" />
+				</div>
+			</form>
+		</div>
+	</body>
+	<script src="__STATIC__/pc/js/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__STATIC__/pc/js/nav.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__STATIC__/mine/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		$(function(){
+			$('.message').attr("id","color_index").siblings().removeAttr("id");
+		})
+		$('input[type="button"]').click(function(){
+		// $('button').attr('disabled',true);
+		$.ajax({
+            type: "POST",
+            url: "{:url('relation')}",
+            data: $("form").serialize(),
+            success: function(data) {
+                if(data.code=='1'){
+                    setTimeout(function(){
+                        location.href = data.url;
+                    },1000);
+                    layer.msg(data.msg);
+                }else{
+                    layer.msg(data.msg);
+                }
+            }
+    	});
+	});
+	</script>
+</html>

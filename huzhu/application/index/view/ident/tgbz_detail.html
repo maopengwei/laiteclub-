@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>订单详情</title>
+    <link rel="stylesheet" href="__STATIC__/pc/css/zhucehuiyuan.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/pc/css/head.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/mobile/js/style.css" />
+</head>
+
+<body>
+    {include file="layout/header" /}
+    <div class="wrapper">
+        <div class="top_title">订单详情</div>
+        <form class="search_area">
+            <div class="con_left">
+                <div class="search_list">
+                    <span class="search_txt">订单号</span>
+                    <input type="text" class="search_input" value="{$order_info.p_id}" readonly />
+                </div>
+                <div class="search_list">
+                    <span class="search_txt">金额</span>
+                    <input type="text" class="search_input" value="{$order_info.jb}" readonly />
+                </div>
+                <div class="search_list">
+                    <span class="search_txt">匹配时间</span>
+                    <input type="text" class="search_input" value="{if condition='$order_info.add_time'}{$order_info.add_time|date='Y-m-d H:i:s',###}{else}{/if}"  readonly />
+                </div>
+                <div class="search_list">
+                    <span class="search_txt">打款时间</span>
+                    <input type="text" class="search_input" value="{if condition='$order_info.pay_time'}{$order_info.pay_time|date='Y-m-d H:i:s',###}{else}{/if}" readonly />
+                </div>
+                <div class="search_list">
+                    <span class="search_txt">收款时间</span>
+                    <input type="text" class="search_input" value="{if condition='$order_info.receive_time'}{$order_info.receive_time|date='Y-m-d H:i:s',###}{else}{/if}" readonly />
+                </div>
+                <div class="search_list">
+                    <span class="search_txt">第一次提款时间</span>
+                    <input type="text" class="search_input" value="{if condition='$order_info.end_time'}{$order_info.end_time|date='Y-m-d H:i:s',###}{else}{/if}" readonly />
+                </div>
+                <div class="search_list">
+                    <span class="search_txt">第二次提款时间</span>
+                    <input type="text" class="search_input" value="{if condition='$order_info.last_time'}{$order_info.last_time|date='Y-m-d H:i:s',###}{else}{/if}"  />
+                </div>
+            </div>
+            <div class="con_right">
+                <div class="search_list">
+                    <span class="search_txt">对方账号</span>
+                    <input type="text" class="search_input" value="{$order_info.g_user}" readonly />
+                </div>
+                <div class="search_list">
+                    <span class="search_txt">对方姓名</span>
+                    <input type="text" class="search_input" value="{$user_info.theme}" readonly />
+                </div>
+                <div class="search_list">
+                    <span class="search_txt">手机号</span>
+                    <input type="text" class="search_input" value="{$user_info.phone}" readonly />
+                </div>
+                <div class="search_list">
+                    <span class="search_txt">银行名称</span>
+                    <input type="text" class="search_input" value="{$user_info.bank_name}" readonly />
+                </div>
+                <div class="search_list">
+                    <span class="search_txt">银行账号</span>
+                    <input type="text" class="search_input" value="{$user_info.card_number}" readonly />
+                </div>
+                <div class="search_list">
+                    <span class="search_txt">开户银行地址</span>
+                    <input type="text" class="search_input" value="{$user_info.bank_address}" readonly />
+                </div>
+                <div class="search_list">
+                    <span class="search_txt">微信号</span>
+                    <input type="text" class="search_input"  value="{$user_info.wechat}" readonly />
+                </div>
+                <div class="search_list">
+                    <span class="search_txt">留言</span>
+                    <input type="text" class="search_input"  value="{$order_info.message}" readonly />
+                </div>
+                <div class="search_list">
+                    <span class="search_txt">打款凭证</span>
+                    <input type="text" class="search_input" value="点击查看" name="pic" class="cd-popup-triggerbb" />
+                </div>
+                
+            </div>
+    </div>
+   </form>
+    <!--弹框-->
+    <div class="cd-popupbb">
+        <div class="cd-popup-containerbb">
+            <div class="tk_img" style="width: 100% ; height: 100%;display: flex;justify-content: center; align-items: center;">
+                <img src="{$order_info.pic}" style="display:block;">
+            </div>
+            <img src="__STATIC__/mobile/img/close1.png" class="cd-popup-closebb" />
+        </div>
+    </div>
+
+</body>
+<script src="__STATIC__/pc/js/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/mine/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/pc/js/nav.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+var bol = true;
+$(".choose_btn").click(function() {
+    if (bol) {
+        $(".choose_btn").attr("src", "__STATIC__/pc/img/no-choose.png")
+        bol = false;
+    } else {
+        $(".choose_btn").attr("src", "__STATIC__/pc/img/choose.png")
+        bol = true;
+    }
+});
+//导航选中
+$(function() {
+    $('.wealth').attr("id", "color_index").siblings().removeAttr("id");
+})
+/*弹框JS内容*/
+jQuery(document).ready(function($) {
+     $('input[name="pic"]').click(function(){
+        console.log(12);
+        $('.cd-popupbb').addClass('is-visiblebb');
+    })
+    //打开窗口
+    // $('.cd-popup-triggerbb').on('click', function(event) {
+    //     console.log(12);
+    //     event.preventDefault();
+    //     $('.cd-popupbb').addClass('is-visiblebb');
+    //     //$(".dialog-addquxiao").hide()
+    // });
+    //关闭窗口
+    $('.cd-popupbb').on('click', function(event) {
+        if ($(event.target).is('.cd-popup-closebb') || $(event.target).is('.cd-popupbb')) {
+            event.preventDefault();
+            $(this).removeClass('is-visiblebb');
+        }
+    });
+    //ESC关闭
+    $(document).keyup(function(event) {
+        if (event.which == '27') {
+            $('.cd-popupbb').removeClass('is-visiblebb');
+        }
+    });
+
+});
+</script>
+
+</html>

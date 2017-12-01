@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/pc/css/head.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/pc/css/index.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/pc/js/style3.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/pc/css/invest_list0.css" />
+    <style>
+    #color1 div:nth-child(2) {
+        background-color: #82ECFF;
+    }
+    #color2 div:nth-child(2) {
+        background-color: #A2FF82;
+    }
+    #color3 div:nth-child(2) {
+        background-color: #ACf0fd;
+    }
+    #color4 div:nth-child(2) {
+        background-color: #FF9782;
+    }
+    #color5 div:nth-child(2) {
+        background-color: #E2C6FF;
+    }
+    #color6 div:nth-child(2) {
+        background-color: #C6E2FF;
+    }
+    #preview img{
+        margin-left: 10%;
+            width: 70%;
+        height: 400px;
+    }
+    </style>
+</head>
+<body>
+    {include file="layout/header" /}
+    <div class="index_con">
+        <div class="index_con_left">
+            <div class="wallet_wrap">
+                <div class="wallet_top">
+                    <p>我的钱包</p>
+                </div>
+                <ul class="wallet_con">
+                    <li>
+                        <p>{$info.lx_performance}</p>
+                        <p>本息钱包</p>
+                    </li>
+                    <li>
+                        <p>{$info.jsbz_performance}</p>
+                        <p>提现累计</p>
+                    </li>
+                    <li>
+                        <p>{$info.tgbz_performance}</p>
+                        <p>打款累计</p>
+                    </li>
+                </ul>
+            </div>
+            <!--投资订单-->
+            <div class="invest_wrap">
+                <form class="tgbz">
+                    <div class="invest_top">
+                        <p>投资订单</p>
+                        <p>
+                            <img src="__STATIC__/pc/img/close.png" class="close0" />
+                            <img src="__STATIC__/pc/img/unfold.png" class="upfold0" />
+                        </p>
+                    </div>
+                    <div class="invest_con">
+                        <p>投资金额</p>
+                        <select name="num">
+                            <option value="">请选择投资金额</option>
+                            <option value="1000">1000</option>
+                            <option value="2000">2000</option>
+                            <option value="3000">3000</option>
+                            <option value="5000">5000</option>
+                        </select>
+                        <p>二级密码</p>
+                        <input type="password" name="second_pass" placeholder="请输入二级密码" />
+                        <ol class="invest_ol">
+                            <li>共消耗一个排单币。</li>
+                        </ol>
+                        <button class="invest_btn" onclick="return tgbz()">
+                            确认投资
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <!--收益订单-->
+            <div class="earnings_wrap">
+                <form class="jsbz">
+                    <div class="earnings_top">
+                        <p>收益订单</p>
+                        <p>
+                            <img src="__STATIC__/pc/img/close.png" class="close1" />
+                            <img src="__STATIC__/pc/img/unfold.png" class="upfold1" />
+                        </p>
+                    </div>
+                    <div class="earnings_con">
+                        <p>取现钱包</p>
+                        <select name="wallet">
+                            <option value="1">静态钱包(余额：<span>{$info.static_wallet}</span>)</option>
+                            <option value="2">奖励钱包(余额：<span>{$info.awart_wallet}</span>)</option>
+                            <option value="3">动态钱包(余额：<span>{$info.dynamic_wallet}</span>)</option>
+                        </select>
+                        <p>收益金额</p>
+                        <input type="text" name="num" placeholder="收益金额" />
+                        <ol class="invest_ol">
+                            <li>静态：100RMB起，100的倍数。</li>
+                            <li>奖励：500RMB起，500的倍数。</li>
+                            <li>动态：500RMB起，500的倍数。</li>
+                        </ol>
+                        <p>二级密码</p>
+                        <input type="password" name="second_pass" placeholder="请输入二级密码" />
+                        <button class="earnings_btn" onclick="return jsbz()">
+                            确认收益
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="index_con_right">
+            <!--账号详情-->
+            <div class="number_wrap">
+                <div class="wallet_top">
+                    <p>账号详情</p>
+                </div>
+                <div class="number_con">
+                    <div class="number_contop">
+                        <ul class="number_list">
+                            <li>
+                                <p>账号：<span class="number_color0">{$info.user}</span></p>
+                                <p>姓名：<span class="number_color0">{$info.theme}</span></p>
+                                <p>级别：<span class="number_color1">普通会员</span></p>
+                            </li>
+                            <li>
+                                <p>诚信值：<span class="number_color1">{$info.value}</span></p>
+                                <p>静态钱包：<span class="number_color0">{$info.static_wallet}</span></p>
+                                <p>团队人数：<span class="number_color1">{$team_count}</span></p>
+                            </li>
+                            <li>
+                                <p>奖励钱包：<span class="number_color0">{$info.awart_wallet}</span></p>
+                                <p>动态钱包：<span class="number_color0">{$info.dynamic_wallet}</span></p>
+                                <p>直推人数：<span class="number_color1">{$direct_count}</span></p>
+                            </li>
+                            <li>
+                                <p>商城积分：<span class="number_color0">{$info.shop_wallet}</span></p>
+                                <p>激活码：<span class="number_color1">{$info.jhm}</span></p>
+                                <p>排单币：<span class="number_color1">{$info.pdb}</span></p>
+                            </li>
+                        </ul>
+                        <p class="lianjie">推广链接：<span class="number_color1">{$url}</span></p>
+                        <input type="text" id="url" value="{$url1}" hidden>
+                    </div>
+                    <div class="qr_code">
+                        <div id="qrcode" class="qr_code" style="width:100%;  margin:10px 40px;"></div>
+                        扫码进入
+                    </div>
+                </div>
+            </div>
+            <!--投资订单-->
+            <ul class="dingdan">
+                <!--排队中-->
+                {volist name="list_tgbz" id="tgbz"}
+                    <li id="color1">
+                        <div class="dingdan_top">
+                            <p>投资订单：<span>{$tgbz.pay_number}</span></p>
+                        </div>
+                        <div class="dingdan_con">
+                            <p>投资者：<span class="number_color0">{$tgbz.uid}</span></p>
+                            <p>投资金额：<span class="number_color1">{$tgbz.jb}</span></p>
+                            <p>投资时间：<span class="number_color0">{$tgbz.date|date="Y-m-d H:i:s",###}</span></p>
+                            <p>状态：<span class="number_color1">排队中</span></p>
+                        </div>
+                    </li>
+                {/volist} {volist name="list_jsbz" id="jsbz"}
+                    <li id="color1">
+                        <div class="dingdan_top">
+                            <p>收益订单：<span>{$jsbz.receive_number}</span></p>
+                        </div>
+                        <div class="dingdan_con">
+                            <p>收益者：<span class="number_color0">{$jsbz.uid}</span></p>
+                            <p>收益金额：<span class="number_color1">{$jsbz.jb}</span></p>
+                            <p>收益时间：<span class="number_color0">{$jsbz.date|date="Y-m-d H:i:s",###}</span></p>
+                            <p>状态：<span class="number_color1">排队中</span></p>
+                        </div>
+                    </li>
+                {/volist}
+                <!--投资完成-->
+                {volist name="list_pay" id="pay"} 
+                    {if condition="$pay.zt eq 1"}<li id="color2">{/if} 
+                    {if condition="$pay.zt eq 2"}<li id="color3">{/if} 
+                    {if condition="$pay.zt eq 3"}<li id="color4">{/if}
+                        <div class="dingdan_top">
+                            <p>投资订单：<span>{$pay.p_id}</span></p>
+                        </div>
+                        <div class="dingdan_con">
+                            <p>投资者：<span class="number_color0">{$pay.p_user}</span></p>
+                            <p>投资金额：<span class="number_color1">{$pay.jb}</span></p>
+                            <p>匹配时间：<span class="number_color0">{$pay.add_time|date="Y-m-d H:i:s",###}</span></p>
+                             {if condition="$pay.zt eq 3"}
+                            <p>提款时间：<span class="number_color0">{$pay.end_time|date="Y-m-d H:i:s",###}</span></p>
+                             {/if}
+                            <p>详情：<span class="number_color0" date-id="{$pay.id}" onclick="tgbz_detail($(this).attr('date-id'))">点击查看</span></p>
+                            {if condition="$pay.zt eq 1"}
+                            <div class="invest_listBtn  cd-popup-triggeraa" date-id="{$pay.id}" onclick="dakuan($(this).attr('date-id'))">上传截图确认</div>
+                            {/if}
+                            {if condition="$pay.zt eq 2"}
+                            <div class="invest_listBtn">等待对方收款</div>
+                            {/if}
+                            {if condition="$pay.zt eq 3"}
+                            <div class="invest_listBtn">等待提款</div>
+                            {/if}
+                        </div>
+                    </li>
+                {/volist}
+                {volist name="list_receive" id="receive"} 
+                    {if condition="$receive.zt eq 1"}<li id="color5">{/if} 
+                    {if condition="$receive.zt eq 2"}<li id="color6">{/if} 
+                        <div class="dingdan_top">
+                            <p>收益订单：<span>{$receive.g_id}</span></p>
+                        </div>
+                        <div class="dingdan_con">
+                            <p>收益者：<span class="number_color0">{$receive.g_user}</span></p>
+                            <p>收益金额：<span class="number_color1">{$receive.jb}RMB</span></p>
+                            <p>匹配时间：<span class="number_color0">{$receive.add_time|date="Y-m-d H:i:s",###}</span></p>
+                            <p>详情：<span class="number_color0" date-id="{$receive.id}" onclick="jsbz_detail($(this).attr('date-id'))">点击查看</span></p>
+                            {if condition="$receive.zt eq 1"}
+                            <div class="invest_listBtn">等待对方打款</div>
+                            {/if}
+                            {if condition="$receive.zt eq 2"}
+                            <div class="invest_listBtn" date-id="{$receive.id}" onclick="receive($(this).attr('date-id'))">确认收款</div>
+                            <div class="invest_listBtn" date-id="{$receive.id}" onclick="complain($(this).attr('date-id'))">投诉？</div>
+                            {/if}
+                        </div>
+                    </li>
+                {/volist}
+            </ul>
+        </div>
+    </div>
+    <!-- 确认打款表单 -->
+    <div class="cd-popupaa">
+        <div class="cd-popup-containeraa">
+            <p class="pingzheng">上传支付凭证</p>
+            <form action="/index/tgbz/dakuan" enctype="multipart/form-data" method="post">
+                <div id="preview"></div>
+                <div class="proof">
+                    点击上传支付凭证
+                    <input type="file" name="img" onchange="preview(this)" value="" />
+                </div>
+                <input name='id' value="" hidden>
+                <p class="liu">留言</p>
+                <textarea name="message" rows="" cols="" class="liuyan_text"></textarea>
+                <button class="liuyan_btn">确定</button>
+            </form>
+            <img src="__STATIC__/pc/img/close1.png" class="cd-popup-closeaa" />
+        </div>
+    </div>
+</body>
+<script src="__STATIC__/pc/js/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/pc/js/nav.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/mine/erweima/qrcode.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/mine/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+//二维码
+var qrcode = new QRCode(document.getElementById("qrcode"), {
+    width: 100,
+    height: 100
+});
+
+function makeCode() {
+    var url = $('#url').val();
+    qrcode.makeCode(url);
+}
+makeCode();
+$(function() {
+    $('#qrcode').css('width', '96px');
+})
+//投资订单隐藏    
+$(".close0").click(function() {
+    $(".close0").hide();
+    $(".upfold0").show();
+    $(".invest_con").slideUp("1000");
+});
+
+//投资订单出现
+$(".upfold0").click(function() {
+    $(".upfold0").hide();
+    $(".close0").show();
+    $(".invest_con").slideDown("1000");
+});
+//收益订单隐藏
+$(".close1").click(function() {
+    $(".close1").hide();
+    $(".upfold1").show();
+    $(".earnings_con").slideUp("1000");
+});
+
+//收益订单出现
+$(".upfold1").click(function() {
+    $(".upfold1").hide();
+    $(".close1").show();
+    $(".earnings_con").slideDown("1000");
+});
+$(function() {
+    $('.index').attr("id", "color_index").siblings().removeAttr("id");
+})
+//投资
+function tgbz() {
+    $.ajax({
+        type: "POST",
+        url: "{:url('/index/tgbz/tgbz')}",
+        data: $(".tgbz").serialize(),
+        success: function(data) {
+            if (data.code == '1') {
+                setTimeout(function() {
+                    location.href = data.url;
+                }, 1000);
+                layer.msg(data.msg);
+            } else {
+                layer.msg(data.msg);
+            }
+        }
+    });
+    return false;
+}
+//收益
+function jsbz() {
+    console.log(123);
+    // $('button').attr('disabled',true);
+    $.ajax({
+        type: "POST",
+        url: "{:url('/index/jsbz/jsbz')}",
+        data: $(".jsbz").serialize(),
+        success: function(data) {
+            console.log(data)
+            if (data.code == '1') {
+                setTimeout(function() {
+                    location.href = data.url;
+                }, 1000);
+                layer.msg(data.msg);
+            } else {
+                layer.msg(data.msg);
+            }
+        }
+    });
+    return false;
+}
+//订单详情
+function tgbz_detail(data){
+    console.log(data);
+    location.href="/index/ident/tgbz_detail?id="+data;
+}
+function jsbz_detail(data){
+    console.log(data);
+    location.href="/index/ident/jsbz_detail?id="+data;
+}
+
+/*确认打款表单*/
+jQuery(document).ready(function($) {
+    //打开窗口
+    $('.cd-popup-triggeraa').on('click', function(event) {
+        event.preventDefault();
+        $('.cd-popupaa').addClass('is-visibleaa');
+        //$(".dialog-addquxiao").hide()
+    });
+    //关闭窗口
+    $('.cd-popupaa').on('click', function(event) {
+        if ($(event.target).is('.cd-popup-closeaa') || $(event.target).is('.cd-popupaa')) {
+            event.preventDefault();
+            $(this).removeClass('is-visibleaa');
+        }
+    });
+    //ESC关闭
+    $(document).keyup(function(event) {
+        if (event.which == '27') {
+            $('.cd-popupaa').removeClass('is-visibleaa');
+        }
+    });
+
+});
+//点击确认打款
+function dakuan(data){
+    console.log(data);
+    $('input[name="id"]').val(data);
+}
+//传图
+function preview(file){  
+    $('.proof').attr('style','display:none;');
+    var prevDiv = document.getElementById('preview');  
+    if (file.files && file.files[0]){  
+         var reader = new FileReader();  
+         reader.onload = function(evt){  
+         prevDiv.innerHTML = '<img src="' + evt.target.result + '" />';  
+    }    
+        reader.readAsDataURL(file.files[0]);  
+    }else{
+          
+        prevDiv.innerHTML = '<div class="img" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>';  
+     }  
+ }
+ //确认收款
+function receive(data){
+    layer.confirm('确定要收款么？', {
+      btn: ['确定', '取消'] //可以无限个按钮
+    }, function(index, layero){
+        console.log(12);
+        $.ajax({
+            type: "get",
+            url: "/index/jsbz/receive",
+            data: {id:data},
+            success: function(data) {
+                console.log(data)
+                if(data.code=='1'){
+                    setTimeout(function(){
+                        location.href = data.url;
+                    },1000);
+                    layer.msg(data.msg);
+                }else{
+                    layer.msg(data.msg);
+                }
+                return false;
+            }
+        });
+    });
+}
+//投诉
+function complain(data){
+    layer.confirm('确定要投诉么？', {
+      btn: ['确定', '取消'] //可以无限个按钮
+    }, function(index, layero){
+        $.ajax({
+            type: "get",
+            url: "/index/jsbz/complain",
+            data: {id:data},
+            success: function(data) {
+                if(data.code=='1'){
+                    setTimeout(function(){
+                        location.href = data.url;
+                    },1000);
+                    layer.msg(data.msg);
+                }else{
+                    layer.msg(data.msg);
+                }
+                return false;
+            }
+        });
+    });
+}
+</script>
+
+</html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>财务中心</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/mobile/css/base.css" />
+    <link rel="stylesheet" href="__STATIC__/mobile/css/index.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/mobile/css/invest_list.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/mobile/js/style.css" />
+    <style>
+    #color2 div:nth-child(2) {
+        background-color: #A2FF82;
+    }
+
+    #color3 div:nth-child(2) {
+        background-color: #ACf0fd;
+    }
+
+    #color4 div:nth-child(2) {
+        background-color: #FF9782;
+    }
+
+    #color7 div:nth-child(2) {
+        background-color: #EFC6FF;
+    }
+
+    #preview img {
+        margin-left: 10%;
+        width: 80%;
+        height: 4rem;
+    }
+
+    .pic-box {
+        text-align: center;
+    }
+
+    .webuploader-element-invisible {
+        background: #fff;
+        position: fixed;
+        left: 50%;
+        border: 0;
+        background: #fff;
+    }
+
+    .webuploader-element-invisible {
+        opacity: 0;
+    }
+
+    #rt_rt_1bv6oe2g81kscmi51hnu1k3u1m471 lable {
+        text-align: center!important;
+    }
+    </style>
+</head>
+
+<body>
+    <!--header-->
+    <div class="header">
+        <a href="/mobile/index/index.html" class="left"><img src="__STATIC__/mobile/img/return.png"/></a>
+        <span class="center">财务中心</span>
+        <a href="javascript:void(0)" class="right">
+            <img src="__STATIC__/mobile/img/menu_btn.png"  class="nav_img"/>    
+        </a>
+    </div>
+    {include file="layout/banner" /}
+    <!--投资订单-->
+    <div class="touzi_top">
+        <p>投资订单列表</p>
+    </div>
+    <ul class="dingdan">
+        <!--排队中-->
+        {volist name="list" id="v"} {if condition="$v.zt eq 1"}
+        <li id="color2">{/if} {if condition="$v.zt eq 2"}
+            <li id="color3">{/if} {if condition="$v.zt eq 3"}
+                <li id="color4">{/if} {if condition="$v.zt eq 4"}
+                    <li id="color7">{/if}
+                        <div class="dingdan_top">
+                            <p>投资订单：<span>{$v.p_id}</span></p>
+                        </div>
+                        <div class="dingdan_con">
+                            <p>投资者：<span class="number_color0">{$v.p_user}</span></p>
+                            <p>投资金额：<span class="number_color1">{$v.jb}RMB</span></p>
+                            <p>匹配时间：<span class="number_color0">{$v.add_time|date="Y-m-d H:i:s",###}</span></p>
+                            {if condition="$v.zt eq 3"}
+                            <p>提款时间：<span class="number_color0">{$v.end_time|date="Y-m-d H:i:s",###}</span></p>
+                            {/if}
+                            <p>对方账号：<span class="number_color0">{$v.g_user}</span></p>
+                            <p>状态：<span class="number_color1">
+                    {if condition="$v.zt eq 1"}未打款{/if}
+                    {if condition="$v.zt eq 2"}等待收款{/if}
+                    {if condition="$v.zt eq 3"}未提款{/if}
+                    {if condition="$v.zt eq 4"}交易完成{/if}
+                </span></p>
+                            <p>详情：<span class="number_color1" date-id="{$v.id}" onclick="detail($(this).attr('date-id'))">点击查看</span></p>
+                            {if condition="$v.zt eq 1"}
+                            <button class="invest_btn0 cd-popup-triggeraa" date-id="{$v.id}" onclick="dakuan($(this).attr('date-id'))">上传截图确认</button>
+                            {/if} {if condition="$v.zt eq 3"}
+                            <button class="invest_btn0">等待提款</button>
+                            {/if}
+                        </div>
+                    </li>
+                    {/volist}
+    </ul>
+    <p class="index_bottom">
+        <img src="__STATIC__/mobile/img/index_bottom.png" />
+    </p>
+    <!--确认打款弹框-->
+    <div class="cd-popupaa">
+        <div class="cd-popup-containeraa">
+            <p class="pingzheng">上传支付凭证</p>
+            <form action="/mobile/tgbz/dakuan" enctype="multipart/form-data" method="post">
+                <!-- <div id="preview"></div>
+                <div class="proof">
+                    点击上传支付凭证
+                    <input type="file" name="img" id="" onchange="preview(this)" value="" />
+                </div> -->
+                <input name='id' value="" hidden>
+                <div id="fileList" class="uploader-list">
+                    <div id="" class="item" style="position: relative;">
+                        <div class="pic-box"><img style="width: 100px;height: 100px" src=""/>
+                            <div id="filePicker" style="text-align: center;line-height: 20px;position: absolute;left: 0;top: 30px;bottom: 0;right:0;margin:auto;width: 30%;height: 100px;line-height: 50px">选择图片</div>
+                        </div>
+
+                    </div>
+                </div>
+                
+                <button onclick="return false;" id="btn-star" class="btn btn-default btn-uploadstar radius ml-10" style="
+                   width: 30%;margin-left: 35%;margin-top: 0.3rem;margin-bottom:30px;background: #fff">开始上传</button>
+                <textarea name="message" rows="" cols="" class="liuyan_text" placeholder="留言"></textarea>
+                <input class="pd_pic" type="hidden" name='pd_pic' value="{}">
+                <button class="liuyan_btn">确定</button>
+            </form>
+            <img src="__STATIC__/mobile/img/close1.png" class="cd-popup-closeaa" />
+        </div>
+    </div>
+    <!--图片-->
+    <!--弹框-->
+    <div class="cd-popupbb">
+        <div class="cd-popup-containerbb">
+            <div class="tk_img">
+            </div>
+            <img src="__STATIC__/mobile/img/close1.png" class="cd-popup-closebb" />
+        </div>
+    </div>
+    <!--菜单-->
+    {include file="layout/menu" /}
+</body>
+<script src="__STATIC__/mobile/js/base.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/mobile/js/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/mobile/js/nav.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/static/webuploader/0.1.5/webuploader.min.js"></script>
+<script type="text/javascript">
+function detail(data) {
+    console.log(data);
+    location.href = "tgbz_detail?id=" + data;
+}
+
+function dakuan(data) {
+    console.log(data);
+    $("input[name='id']").val(data);
+}
+//上传图片
+$(function() {
+
+    $list = $("#fileList"),
+        $btn = $("#btn-star"),
+        state = "pending",
+        uploader;
+
+    var uploader = WebUploader.create({
+        auto: false,
+        // swf: '/static/admin/lib/webuploader/0.1.5/Uploader.swf',
+        // 文件接收服务端。
+        server: '/static/webuploader/0.1.5/server/fileupload.php',
+
+        // 选择文件的按钮。可选。
+        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+        pick: '#filePicker',
+
+        // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+        resize: false,
+        // 只允许选择图片文件。
+        accept: {
+            title: 'Images',
+            extensions: 'gif,jpg,jpeg,bmp,png',
+            mimeTypes: 'image/jpg,image/jpeg,image/png'
+        }
+    });
+    uploader.on('fileQueued', function(file) {
+        var $li = $(
+                '<div id="' + file.id + '" class="item">' +
+                '<div class="pic-box"><img></div>' +
+                '<div class="info">' + file.name + '</div>' +
+                '<p class="state">等待上传...</p>' +
+                '</div>'
+            ),
+            $img = $li.find('img');
+        $list.html($li);
+        // 创建缩略图
+        // 如果为非图片文件，可以不用调用此方法。
+        // thumbnailWidth x thumbnailHeight 为 100 x 100
+        uploader.makeThumb(file, function(error, src) {
+            if (error) {
+                $img.replaceWith('<span>不能预览</span>');
+                return;
+            }
+            $img.attr('src', src);
+        }, 100, 100);
+    });
+    // 文件上传过程中创建进度条实时显示。
+    uploader.on('uploadProgress', function(file, percentage) {
+        var $li = $('#' + file.id),
+            $percent = $li.find('.progress-box .sr-only');
+
+        // 避免重复创建
+        if (!$percent.length) {
+            $percent = $('<div class="progress-box"><span class="progress-bar radius"><span class="sr-only" style="width:0%"></span></span></div>').appendTo($li).find('.sr-only');
+        }
+        $li.find(".state").text("上传中");
+        $percent.css('width', percentage * 100 + '%');
+    });
+
+    // 文件上传成功，给item添加成功class, 用样式标记上传成功。
+    uploader.on('uploadSuccess', function(file, response) {
+        var aa = getExt(file.name);
+        $('#' + file.id).addClass('upload-state-success').find(".state").text("已上传");
+        $('.pd_pic').val("/uploads/pingzheng/"+response+aa);
+    });
+
+    // 文件上传失败，显示上传出错。
+    uploader.on('uploadError', function(file) {
+        $('#' + file.id).addClass('upload-state-error').find(".state").text("上传出错");
+    });
+
+    // 完成上传完了，成功或者失败，先删除进度条。
+    uploader.on('uploadComplete', function(file) {
+        $('#' + file.id).find('.progress-box').fadeOut();
+    });
+    uploader.on('all', function(type) {
+        if (type === 'startUpload') {
+            state = 'uploading';
+        } else if (type === 'stopUpload') {
+            state = 'paused';
+        } else if (type === 'uploadFinished') {
+            state = 'done';
+        }
+
+        // if (state === 'uploading') {
+        //     $btn.text('暂停上传');
+        // } else {
+        //     $btn.text('开始上传');
+        // }
+    });
+
+    $btn.on('click', function() {
+        if (state === 'uploading') {
+            uploader.stop();
+        } else {
+            uploader.upload();
+        }
+    });
+
+});
+
+function getExt(uploadf) {
+    var index1 = uploadf.lastIndexOf(".");
+    var index2 = uploadf.length;
+    return uploadf.substring(index1, index2);
+}
+
+/*弹框JS内容*/
+jQuery(document).ready(function($) {
+    //打开窗口
+    $('.cd-popup-triggeraa').on('click', function(event) {
+        event.preventDefault();
+        $('.cd-popupaa').addClass('is-visibleaa');
+        //$(".dialog-addquxiao").hide()
+    });
+    //关闭窗口
+    $('.cd-popupaa').on('click', function(event) {
+        if ($(event.target).is('.cd-popup-closeaa') || $(event.target).is('.cd-popupaa')) {
+            event.preventDefault();
+            $(this).removeClass('is-visibleaa');
+        }
+    });
+    //ESC关闭
+    $(document).keyup(function(event) {
+        if (event.which == '27') {
+            $('.cd-popupaa').removeClass('is-visibleaa');
+        }
+    });
+});
+/*弹框JS内容*/
+jQuery(document).ready(function($) {
+    //打开窗口
+    $('.cd-popup-trigger2').on('click', function(event) {
+        event.preventDefault();
+        $('.cd-popup2').addClass('is-visible2');
+        //$(".dialog-addquxiao").hide()
+    });
+    //关闭窗口
+    $('.cd-popup2').on('click', function(event) {
+        if ($(event.target).is('.cd-popup-close2') || $(event.target).is('.cd-popup2') || $(event.target).is('.cd-popup-close-img')) {
+            event.preventDefault();
+            $(this).removeClass('is-visible2');
+        }
+    });
+    //ESC关闭
+    $(document).keyup(function(event) {
+        if (event.which == '27') {
+            $('.cd-popup2').removeClass('is-visible2');
+        }
+    });
+});
+/*弹框JS内容*/
+jQuery(document).ready(function($) {
+    //打开窗口
+    $('.cd-popup-triggerbb').on('click', function(event) {
+        event.preventDefault();
+        $('.cd-popupbb').addClass('is-visiblebb');
+        //$(".dialog-addquxiao").hide()
+    });
+    //关闭窗口
+    $('.cd-popupbb').on('click', function(event) {
+        if ($(event.target).is('.cd-popup-closebb') || $(event.target).is('.cd-popupbb')) {
+            event.preventDefault();
+            $(this).removeClass('is-visiblebb');
+        }
+    });
+    //ESC关闭
+    $(document).keyup(function(event) {
+        if (event.which == '27') {
+            $('.cd-popupbb').removeClass('is-visiblebb');
+        }
+    });
+});
+</script>
+
+</html>

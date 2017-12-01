@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="UTF-8">
+		<title>我的直推</title>
+		<link rel="stylesheet" href="__STATIC__/mobile/css/base.css" />
+		<link rel="stylesheet" href="__STATIC__/mobile/css/zhitui-list.css" />
+	</head>
+	<body>
+		<!--header-->
+		<div class="header">
+			<a href="/mobile/index/index.html" class="left"><img src="__STATIC__/mobile/img/return.png"/></a>
+			<span class="center">我的直推</span>
+			<a href="javascript:void(0)" class="right">
+				<img src="__STATIC__/mobile/img/menu_btn.png"  class="nav_img"/>	
+			</a>
+		</div> 
+		<!--banner-->
+		{include file="layout/banner" /}
+		<!--直推列表-->
+		<div class="zhitui_wrap">
+			<div class="zhitui_top">
+				<p>直推列表</p>
+			</div>
+			<ul>
+				{foreach name="list" item="v"}
+				<li class="zhitui_list">
+					<p>
+						<span class="left_txt">用户账号</span>
+						<span class="right_txt">{$v.user}</span>
+					</p>
+					<p>
+						<span class="left_txt">用户姓名</span>
+						<span class="right_txt">{$v.theme}</span>
+					</p>
+					<p>
+						<span class="left_txt">手机号</span>
+						<span class="right_txt">{$v.phone}</span>
+					</p>
+					<p>
+						<span class="left_txt">加入时间</span>
+						<span class="right_txt">{$v.add_time|date="Y-m-d H:i",###}</span>
+					</p>
+					<p>
+						<span class="left_txt">用户状态</span>
+						<span class="right_txt">
+						{if condition="$v.status eq 0"}待激活{/if}
+	                    {if condition="$v.status eq 1"}审核中{/if}
+	                    {if condition="$v.status eq 2"}正常{/if}
+	                    {if condition="$v.status eq 3"}超时不打款{/if}
+	                    {if condition="$v.status eq 4"}超时未收款{/if}
+	                    {if condition="$v.status eq 5"}超时未排单{/if}
+						</span>
+					</p>
+				</li>
+				{/foreach}
+			</ul>
+			<p class="index_bottom">
+			<img src="__STATIC__/mobile/img/index_bottom.png"/>
+		</p>
+		</div>
+		
+		
+		<!--菜单-->
+		{include file="layout/menu"}
+	</body>
+	<script src="__STATIC__/mobile/js/base.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__STATIC__/mobile/js/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__STATIC__/mobile/js/nav.js" type="text/javascript" charset="utf-8"></script>
+	
+</html>

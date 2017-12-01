@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>新闻公告</title>
+		<link rel="stylesheet" href="__STATIC__/pc/css/news.css" />
+		<link rel="stylesheet" type="text/css" href="__STATIC__/pc/css/news_list.css"/>
+		<link rel="stylesheet" type="text/css" href="__STATIC__/pc/css/head.css" />
+	</head>
+	<body>
+		{include file="layout/header" /}
+		<div class="wrapper">
+			<div class="top_title">新闻公告</div>
+			<div class="con_area">
+				<p class="con_tit">{$info.title}</p>
+				<p class="con_time">{$info.add_time|date="Y-m-d H:i:s",###}</p>
+				<p class="con_txt">{$info.content}</p>
+			</div>
+		</div>
+	</body>
+	<script src="__STATIC__/pc/js/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__STATIC__/pc/js/nav.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		$(function(){
+			$('.message').attr("id","color_index").siblings().removeAttr("id");
+		})
+	</script>
+</html>

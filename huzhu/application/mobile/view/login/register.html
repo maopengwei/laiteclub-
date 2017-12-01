@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="__STATIC__/mobile/css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="__STATIC__/mobile/css/register.css"/>
+		<title>注册会员</title>
+		
+	</head>
+	<body>
+		<!--header-->
+		<div class="header">
+			<a href="/mobile/index/index" class="left"><img src="__STATIC__/mobile/img/return.png"/></a>
+			<span class="center">注册会员</span>
+			<a href="javascript:void(0)" class="right">
+				<img src="__STATIC__/mobile/img/menu_btn.png"  class="nav_img"/>	
+			</a>
+		</div> 
+		<!--banner-->
+		{include file="layout/banner" /}
+		<!--注册账号-->
+		
+
+		<div class="register_wrap">
+			<div class="register_top">
+				<p>注册账号</p>
+			</div>
+			<ul class="register_list">
+				<form>
+				<li>
+					<p>登录账号</p>
+					<input type="text" name="user" id="" value="" placeholder="4-16位字母或数字"/>
+				</li>
+				<li>
+					<p>真实姓名</p>
+					<input type="text" name="theme" id="" value="" placeholder="真实姓名"/>
+				</li>
+				<li>
+					<p>手机号码</p>
+					<input type="text" name="phone" id="mobile" value="" placeholder="11位数手机号码"/>
+				</li>
+				<li>
+					<p>推荐人账号</p>
+					<input type="text" value="{$user.user}"  readonly style="background: #f5f5f5;"/>
+					<input type="text" name="pid" value="{$user.id}" hidden  readonly />
+				</li>
+				<li>
+					<p>登录密码</p>
+					<input type="password" name="user_pass" placeholder="登录密码"/>
+				</li>
+				<li>
+					<p>确认密码</p>
+					<input type="password" name="pass1" placeholder="确认登录密码"/>
+				</li>
+				<li>
+					<p>二级密码</p>
+					<input type="password" name="second_pass" placeholder="二级密码"/>
+				</li>
+				<li>
+					<p>确认二级密码</p>
+					<input type="password" name="pass2" placeholder="确认二级密码"/>
+				</li>
+				<li>
+					<p>手机验证码</p>
+					<div class="yzm">
+					<input type="text" name="note_code" id="" value="" placeholder="请输入收到的验证码"/>
+					<a class="gain" onClick="gain()">获取</a>
+					</div>
+				</li>
+				</form>
+				<li>
+					<p id="tishi">温馨提示：投资有风险，请勿跟风投资，请用闲散资金参与。</p>
+				</li>
+				<li id="register_btn">
+					<button>
+					注册	
+					</button>
+				</li>
+			</ul>
+			<p class="index_bottom">
+			<img src="__STATIC__/mobile/img/index_bottom.png"/>
+		</p>
+		</div>
+		
+		<!--菜单-->
+		<!-- {include file="layout/menu" /} -->
+	</body>
+	<script src="__STATIC__/mobile/js/base.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__STATIC__/mobile/js/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__STATIC__/mine/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__STATIC__/mobile/js/nav.js" type="text/javascript" charset="utf-8"></script>
+	
+
+	<script type="text/javascript">
+  		function gain() {
+  			console.log(123);
+	       $('.gain').removeAttr('onClick');
+	       var data=$("#mobile").val();
+	       requestAuthcode($('.gain'),data);
+	   }
+		function countDown(obj, sec, oritxt, info) {
+		    if (sec == 0)
+		    {
+		        obj.text(oritxt);
+		        obj.attr('onClick','gain()');
+		    }
+		    else
+		    {
+		        obj.text(sec + info);
+		        sec--;
+		        setTimeout(function(){
+		            countDown(obj, sec, oritxt, info);
+		        }, 1000);
+		    }
+		}
+		function requestAuthcode(obj,aug) {
+			console.log(obj);
+		    $.get("/mobile/login/sendSMS/?mobile="+aug, function(data){
+		    	layer.msg(data.msg);
+		        if (data['status'] == 'failed'){
+		            $(".gain").attr('onClick','gain()');
+		        }else{
+		        	countDown(obj, 60, '获取', '秒后获取');
+		        }
+		    }, "json");
+		}
+		$('button').click(function(){
+			// $('button').attr('disabled',true);
+			$.ajax({
+	            type: "POST",
+	            url: "{:url('register')}",
+	            data: $("form").serialize(),
+	            success: function(data) {
+	                console.log(data)
+	                if(data.code=='1'){
+	                    setTimeout(function(){
+	                        location.href = data.url;
+	                    },1000);
+	                    layer.msg(data.msg);
+	                }else{
+	                    layer.msg(data.msg);
+	                }
+	            }
+	        });
+		});
+	</script>
+</html>
+

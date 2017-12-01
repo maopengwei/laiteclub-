@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>个人资料</title>
+    <link rel="stylesheet" href="__STATIC__/pc/css/zhucehuiyuan.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/pc/css/head.css" />
+</head>
+
+<body>
+    {include file="layout/header" /}
+    <div class="wrapper">
+        <div class="top_title">个人资料</div>
+        <form class="search_area">
+            <div class="con_left">
+                <div class="search_list">
+                    <span class="search_txt">登陆账号</span>
+                    <input type="text" class="search_input" value="{$info.user}" />
+                </div>
+                <div class="search_list">
+                    <span class="search_txt">真实姓名</span>
+                    <input type="text" class="search_input" value="{$info.theme}"  />
+                </div>
+                <div class="search_list">
+                    <span class="search_txt">手机号码</span>
+                    <input type="text" class="search_input" value="{$info.phone}"  />
+                </div>
+                <div class="search_list">
+                    <span class="search_txt">支付宝</span>
+                    <input type="text" class="search_input" name="alipay" placeholder="支付宝账号" value="{$info.alipay}" />
+                </div>
+                <div class="search_list">
+                    <span class="search_txt">二级密码</span>
+                    <input type="password" class="search_input" name="second_pass" placeholder="二级密码" />
+                </div>
+            </div>
+            <div class="con_right">
+                <div class="search_list">
+                    <span class="search_txt">银行名称</span>
+                    <input type="text" class="search_input" name="bank_name" placeholder="开户银行" value="{$info.bank_name}" />
+                </div>
+                <div class="search_list">
+                    <span class="search_txt">银行账户</span>
+                    <input type="text" class="search_input" placeholder="银行账户" name="card_number" value="{$info.card_number}" />
+                </div>
+                <div class="search_list">
+                    <span class="search_txt">开户银行地址</span>
+                    <input type="text" class="search_input" placeholder="开户银行地址" name="bank_address" value="{$info.bank_address}" />
+                </div>
+                <div class="search_list">
+                    <span class="search_txt">收货地址</span>
+                    <input type="text" class="search_input" placeholder="地址" name="address" value="{$info.address}" />
+                </div>
+                <div class="search_list">
+                    <span class="search_txt">微信号</span>
+                    <input type="text" class="search_input" name="wechat" value="{$info.wechat}" placeholder="微信号" />
+                </div>
+            </div>
+            <div class="con_btm">
+                <p class="warm_txt">温馨提示：投资有风险，请勿跟风投机，请用闲散资金参与。</p>
+                <hr />
+            </div>
+            <input type="button" class="zhuce_btn" onclick="return zhuce()" value="注册" />
+        </form>
+    </div>
+</body>
+<script src="__STATIC__/pc/js/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/mine/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/pc/js/nav.js" type="text/javascript" charset="utf-8"></script>
+<script>
+$(function() {
+    $('.account').attr("id", "color_index").siblings().removeAttr("id");
+})
+function zhuce(){
+	$.ajax({
+		type:"post",
+		url:"{:url('index')}",
+		data:$(".search_area").serialize(),
+		success:function(data){
+			console.log();
+			if(data.code=='1'){
+                setTimeout(function(){
+                    location.href = data.url;
+                },1000);
+                layer.msg(data.msg);
+            }else{
+                layer.msg(data.msg);
+            }
+		}
+	})
+	return false;
+}
+</script>
+
+</html>

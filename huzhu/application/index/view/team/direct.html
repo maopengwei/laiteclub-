@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>直推列表</title>
+		<link rel="stylesheet" href="__STATIC__/pc/css/public.css" />
+		<link rel="stylesheet" type="text/css" href="__STATIC__/pc/css/head.css" />
+	</head>
+	<body>
+		{include file="layout/header" /}
+		<div class="wrapper">
+			<div class="top_title">直推列表</div>
+			<table cellspacing="0" cellpadding="" class="table">
+				<tr>
+					<th>用户账户</th>
+					<th>用户姓名</th>
+					<th>手机号码</th>
+					<th>加入时间</th>
+					<th>用户状态</th>
+				</tr>
+				{volist name="list" id="v"}
+				<tr>
+					<td>{$v.user}</td>
+					<td>{$v.theme}</td>
+					<td>{$v.phone}</td>
+					<td>{$v.add_time|date="Y-m-d:H:i:s",###}</td>
+					<td>
+						{if condition="$v.status eq 0"}未激活{/if}
+						{if condition="$v.status eq 1"}未审核{/if}
+						{if condition="$v.status eq 2"}正常{/if}
+						{if condition="$v.status eq 3"}冻结{/if}
+						{if condition="$v.status eq 4"}冻结{/if}
+						{if condition="$v.status eq 5"}封号{/if}
+					</td>
+				</tr>
+				{/volist}
+			</table>
+		</div>
+	</body>
+	<script src="__STATIC__/pc/js/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__STATIC__/pc/js/nav.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		$(function() {
+		    $('.team').attr("id", "color_index").siblings().removeAttr("id");
+		})
+	</script>
+</html>

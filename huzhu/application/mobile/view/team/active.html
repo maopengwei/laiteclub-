@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta charset="UTF-8">
+    <title>激活会员</title>
+    <link rel="stylesheet" href="__STATIC__/mobile/css/base.css" />
+    <link rel="stylesheet" href="__STATIC__/mobile/css/vip.css" />
+</head>
+
+<body>
+    <!--header-->
+    <div class="header">
+        <a href="/mobile/index/index" class="left"><img src="__STATIC__/mobile/img/return.png"/></a>
+        <span class="center">激活会员</span>
+        <a href="javascript:void(0)" class="right">
+				<img src="__STATIC__/mobile/img/menu_btn.png"  class="nav_img"/>	
+			</a>
+    </div>
+    <!--banner-->
+    {include file="layout/banner" /}
+    <!--激活会员-->
+    <div class="vip_wrap">
+        <div class="vip_top">
+            <p>激活会员</p>
+        </div>
+        <ul class="vip_list1">
+            {volist name="list" id="v"}
+            <li>
+                <p>
+                    <span class="vip_left">账户名</span>
+                    <span class="vip_right">{$v.user}</span>
+                </p>
+                <p>
+                    <span class="vip_left">用户姓名</span>
+                    <span class="vip_right">{$v.theme}</span>
+                </p>
+                <p>
+                    <span class="vip_left">手机号</span>
+                    <span class="vip_right">{$v.phone}</span>
+                </p>
+                <p>
+                    <span class="vip_left">加入时间</span>
+                    <span class="vip_right">{$v.add_time|date="Y-m-d H:i",###}</span>
+                </p>
+                <p>
+                    <span class="vip_left">用户状态</span>
+                    <span class="vip_right">
+                    {if condition="$v.status eq 0"}未激活{/if}
+                    {if condition="$v.status eq 1"}未审核{/if}
+                    {if condition="$v.status eq 2"}正常{/if}
+                    {if condition="$v.status eq 3"}超时不打款{/if}
+                    {if condition="$v.status eq 4"}超时未收款{/if}
+                    {if condition="$v.status eq 5"}超时未排单{/if}
+                    </span>
+                </p>
+                <p>
+                    <span class="vip_left">操作</span>
+                    <span class="vip_right">
+                    {if condition="$v.status eq 0"}<span date-id="{$v.id}" onclick="active(this)">激活</span>{else}无操作{/if}
+                    </span>
+                </p>
+            </li>
+            {/volist}
+        </ul>
+        <p class="index_bottom">
+            <img src="__STATIC__/mobile/img/index_bottom.png" />
+        </p>
+    </div>
+    <!--菜单-->
+    {include file="layout/menu" /}
+</body>
+<script src="__STATIC__/mobile/js/base.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/mobile/js/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/mobile/js/nav.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/mine/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    function active(data){
+        var id = $(data).attr('date-id');
+        layer.confirm('您确定要激活该用户么？', {
+          btn: ['是的','取消'] //按钮
+        }, function(){
+            layer.open({
+                content: '<input  class="ejmm" type="password"  placeholder="二级密码" />'
+                ,btn: ['确定', '取消']
+                ,yes: function(index, layero){
+                    var ejmm = $('.ejmm').val();
+                    $.ajax({
+                        type:"POST",
+                        url:'{:url("active")}',
+                        data:{id:id,second_pass:ejmm},
+                        success: function(data){
+                            if(data.code=='1'){
+                                setTimeout(function(){
+                                    location.href = data.url;
+                                },1000);
+                                layer.msg(data.msg);
+                            }else{
+                                layer.msg(data.msg);
+                            }
+                        }
+                    });
+                }
+            })
+        });
+    }
+</script>
+</html>

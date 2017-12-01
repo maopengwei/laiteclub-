@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>无标题文档</title>
+    <script type="text/javascript" src='__STATIC__/mine/jquery/jquery-1.7.2.min.js'></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $(".click").click(function() {
+            $(".tip").fadeIn(200);
+        });
+
+        $(".tiptop a").click(function() {
+            $(".tip").fadeOut(200);
+        });
+
+        $(".sure").click(function() {
+            $(".tip").fadeOut(100);
+        });
+
+        $(".cancel").click(function() {
+            $(".tip").fadeOut(100);
+        });
+
+    });
+    </script>
+</head>
+
+<body>
+    <label></label>
+    <div class="rightinfo">
+        <form action="dakuan" enctype="multipart/form-data" method="post">
+            <table width="90%" border="0" cellpadding="5" cellspacing="1" bgcolor="#CCCCCC" class="tablebg" id="table1">
+                <tr>
+                    <td bgcolor="#FFFFFF" class="tbkey">留言</td>
+                    <td bgcolor="#FFFFFF" class="tbval">
+                        <input name="message" type="text" size="90" />
+                        <input name="id" type="text" hidden value="{$id}" />
+                    </td>
+                </tr>
+                <tr>
+                    <td bgcolor="#FFFFFF" class="tbkey">打款凭证：</td>
+                    <td bgcolor="#FFFFFF" class="tbval">
+
+                        <div class='edit-face'>
+                          <div id="preview"></div>
+                            <img src="" width='140' height='140' id='face-img' />
+                        </div>
+                        <input type="file" name="img" onchange="preview(this)" value="">
+                    </td>
+                </tr>
+            </table>
+            <div id="state_lockcon"></div>
+            <table class="tablebg" id="table3" style="clear:both">
+                <TR>
+                    <td colspan="3">
+                        <input type="submit" class="button_text" id="btn" value="确定">
+                    </TD>
+                </TR>
+            </table>
+        </form>
+    </div>
+    <script type="text/javascript">
+    $('.tablelist tbody tr:odd').addClass('odd');
+    function preview(file){  
+        $('#face-img').attr('style','display:none;');
+        var prevDiv = document.getElementById('preview');  
+        if (file.files && file.files[0]){  
+             var reader = new FileReader();  
+             reader.onload = function(evt){  
+             prevDiv.innerHTML = '<img src="' + evt.target.result + '" />';  
+        }    
+            reader.readAsDataURL(file.files[0]);  
+        }else{
+              
+            prevDiv.innerHTML = '<div class="img" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>';  
+         }  
+     }
+    </script>
+</body>
+
+</html>

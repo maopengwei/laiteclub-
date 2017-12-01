@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>财务中心</title>
+		<link rel="stylesheet" href="__STATIC__/pc/css/public.css" />
+		<link rel="stylesheet" type="text/css" href="__STATIC__/pc/css/head.css" />
+	</head>
+	<body>
+		{include file="layout/header" /}
+		<div class="wrapper">
+			<div class="top_title">静态收益明细</div>
+			<table cellspacing="0" cellpadding="" class="table">
+				<tr>
+					<th>编号</th>
+					<th>用户账户</th>
+					<th>收益金额</th>
+					<th>时间</th>
+					<th>类型</th>
+				</tr>
+				{volist name="list" id="v"}
+				<tr>
+					<td>{$v.i}</td>
+					<td>{$v.uid}</td>
+					<td>{$v.jb}</td>
+					<td>{$v.add_time|date="Y-m-d H:i:s",###}</td>
+					<td>{$v.type}</td>
+				</tr>
+				{/volist}
+			</table>
+		</div>
+	</body>
+	<script src="__STATIC__/pc/js/jquery-2.2.4.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__STATIC__/mine/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__STATIC__/pc/js/nav.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		$(function() {
+		    $('.profit').attr("id", "color_index").siblings().removeAttr("id");
+		})
+	</script>
+</html>
