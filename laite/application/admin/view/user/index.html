@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>无标题文档</title>
+    <link href="__STATIC__/admin/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="__STATIC__/admin/css/select.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="__STATIC__/mine/jquery/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/admin/js/jquery.idTabs.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/admin/js/select-ui.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/admin/editor/kindeditor.js"></script>
+    <script type="text/javascript" src="__STATIC__/mine/layer/layer.js"></script>
+    <script type="text/javascript">
+    // KE.show({
+    //     id: 'content7',
+    //     cssPath: './index.css'
+    // });
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function(e) {
+        $(".select1").uedSelect({
+            width: 345
+        });
+        $(".select2").uedSelect({
+            width: 167
+        });
+        $(".select3").uedSelect({
+            width: 100
+        });
+    });
+    </script>
+    <style type="text/css">
+        .page{
+            width: 100%;
+        }
+        .page ul{
+            width: 30%;
+            margin-left: 35%;
+            overflow: hidden;
+        }
+        .page ul li{
+            width:25% ;
+            float: left;
+
+        }
+        .page ul li>span{
+            font-size: 20px;
+            
+        }
+        .page ul li>a{
+            font-size: 20px;
+            
+        }
+    </style>
+</head>
+
+<body>
+    <div class="place">
+        <span>位置：</span>
+        <ul class="placeul">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">用户列表</a></li>
+        </ul>
+    </div>
+    <div class="tools">
+        <ul class="toolbar" style="padding:3px;">
+            <li class="click"><a href="add"><span><img src="__STATIC__/admin/images/t01.png" /></span>添加</a></li>
+        </ul>
+        <ul class="toolbar1">
+        </ul>
+    </div>
+    <div class="formbody">
+        <ul class="seachform">
+            <form action="index" method="get">
+            <li>
+                <label>用户</label>
+                <input name="user" type="text" class="scinput" value="{$Think.get.user}" />
+            </li>
+            <li>
+                <label>状态</label>
+                <div class="vocation">
+                    <select class="select3" name="status">
+                        <option></option>
+                        <option value="0">未激活</option>
+                        <option value="1">正常</option>
+                        <option value="2">封号</option>
+                    </select>
+                </div>
+            </li>
+            <li>
+            <label>等级</label>
+                <div class="vocation">
+                    <select class="select3" name="level">
+                        <option></option>
+                        <option value="0">普通会员</option>
+                        <option value="1">报单中心</option>
+                    </select>
+                </div>
+            </li>
+            <li>
+
+                <label>&nbsp;</label>
+                <input type="submit" class="scbtn" value="查询" />
+            </li>
+            </form>
+            <script>
+                if('{$Think.get.status}'){
+                    $('form select[name="status"]').val('{$Think.get.status}');
+                }
+                if('{$Think.get.level}'){
+                    $('form select[name="level"]').val('{$Think.get.level}');
+                }
+            </script>
+        </ul>
+        <table class="tablelist">
+            <thead>
+                <tr>
+                    <th>账户名</th>
+                    <th>手机号</th>
+                    <th>真实姓名</th>
+                    <th>推荐人</th>
+                    <th>等级</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {volist name='list' id='v'}
+                <tr>
+                    <td>{$v.user}</td>
+                    <td>{$v.phone}</td>
+                    <td>{$v.theme}</td>
+                    <td>{$v.pid}</td>
+                    <td>
+                        {if condition="$v.level eq 0"}普通会员{/if}
+                        {if condition="$v.level eq 1"}报单中心{/if}
+                    </td>
+                    <td>
+                        <a href="edit?id={$v.id}" class="tablelink">详情</a>&nbsp;&nbsp;
+                        <a onClick="javascript:if(!confirm('确认要删除吗？'))  return  false;" href="del?id={$v.id}" class="tablelink">删除</a>&nbsp;&nbsp;
+                        <a onClick="javascript:if(!confirm('确认要进入前台吗？'))  return  false;" href="/index/login/admin?id={$v.id}" target="_Blank" class="tablelink">进入前台</a>&nbsp;&nbsp;
+                        {if condition="$v.status eq 0"}
+                        <a onclick="active({$v.id})">激活</a>
+                        {/if}
+                    </td>
+                </tr>
+                {/volist}
+            </tbody>
+        </table>
+        <div class="page">
+            {$list->render()}
+        </div>
+    </div>
+</body>
+<script>
+    if('{$Think.get.status}'){
+        $('form select[name="status"]').val('{$Think.get.status}');
+    }
+    if('{$Think.get.level}'){
+        $('form select[name="level"]').val('{$Think.get.level}');
+    }
+    
+    function active(data){
+        layer.confirm('确定要激活么？', {
+          btn: ['确定', '取消'] //可以无限个按钮
+        }, function(index, layero){
+            $.ajax({
+                type: "post",
+                url: "{:url('active')}",
+                data: {id:data},
+                success: function(data) {
+                    console.log(data);
+                    if(data.code=='1'){
+                        setTimeout(function(){
+                            location.href = data.url;
+                        },1000);
+                        layer.msg(data.msg);
+                    }else{
+                        layer.msg(data.msg);
+                    }
+                    return false;
+                }
+            });
+        });
+    }
+</script>
+</html>

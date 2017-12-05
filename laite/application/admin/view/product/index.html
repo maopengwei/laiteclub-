@@ -1,0 +1,245 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>无标题文档</title>
+    <link href="__STATIC__/admin/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="__STATIC__/admin/css/select.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="__STATIC__/mine/jquery/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/admin/js/jquery.idTabs.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/admin/js/select-ui.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/admin/editor/kindeditor.js"></script>
+    <script type="text/javascript" src="__STATIC__/mine/layer/layer.js"></script>
+    <script type="text/javascript">
+    // KE.show({
+    //     id: 'content7',
+    //     cssPath: './index.css'
+    // });
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function(e) {
+        $(".select1").uedSelect({
+            width: 345
+        });
+        $(".select2").uedSelect({
+            width: 167
+        });
+        $(".select3").uedSelect({
+            width: 100
+        });
+    });
+    </script>
+    <style type="text/css">
+    .page {
+        width: 100%;
+    }
+
+    .page ul {
+        width: 30%;
+        margin-left: 35%;
+        overflow: hidden;
+    }
+
+    .page ul li {
+        width: 25%;
+        float: left;
+    }
+
+    .page ul li>span {
+        font-size: 20px;
+    }
+
+    .page ul li>a {
+        font-size: 20px;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="place">
+        <span>位置：</span>
+        <ul class="placeul">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">分类列表</a></li>
+        </ul>
+    </div>
+    <div class="tools">
+        <ul class="toolbar" style="padding:3px;">
+            <li class="click"><a href="add"><span><img src="__STATIC__/admin/images/t01.png" /></span>添加</a></li>
+        </ul>
+        <ul class="toolbar1">
+        </ul>
+    </div>
+    <div class="formbody">
+        <ul class="seachform">
+            <form action="index" method="get">
+                <li>
+                    <label>产品名</label>
+                    <input name="name" type="text" class="scinput" value="{$Think.get.name}" />
+                </li>
+                <li>
+                    <label>&nbsp;</label>
+                    <input type="submit" class="scbtn" value="查询" />
+                </li>
+            </form>
+            <script>
+            if ('{$Think.get.status}') {
+                $('form select[name="status"]').val('{$Think.get.status}');
+            }
+            </script>
+        </ul>
+        <table class="tablelist">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>名字</th>
+                    <th>现价</th>
+                    <th>会员价</th>
+                    <th>分类</th>
+                    <th>主图</th>
+                    <th>添加时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {volist name='list' id='v'}
+                <tr>
+                    <td>{$v.id}</td>
+                    <td>{$v.name}</td>
+                    <td>{$v.user_price}</td>
+                    <td>{$v.price}</td>
+                    <td>{$v.tid}</td>
+                    <td date-id="{$v.id}" onclick="look($(this).attr('date-id'))">点击显示</td>
+                    <td>{$v.add_time|date="Y-m-d H:i:s",###}</td>
+                    <td>
+                        <a href="edit?id={$v.id}">修改</a>
+                        <a date-id="{$v.id}" onclick="del($(this).attr('date-id'))">删除</a>
+                        <a date-id="{$v.id}" onclick="updown($(this).attr('date-id'))">
+                            {if condition="$v.updown==0"}下架{/if}
+                            {if condition="$v.updown==1"}上架{/if}
+                        </a>
+                        <a date-id="{$v.id}" onclick="news($(this).attr('date-id'))">
+                            {if condition="$v.new==1"}非新品{/if}
+                            {if condition="$v.new==0"}新品{/if}
+                        </a>
+                        <a date-id="{$v.id}" onclick="hot($(this).attr('date-id'))">
+                            {if condition="$v.hot==0"}非热卖{/if}
+                            {if condition="$v.hot==1"}热卖{/if}
+                        </a>
+                    </td>
+                </tr>
+                <img class="voucher{$v.id}" src="{$v.pic}" onclick="out(this)" style="display:none;">
+                {/volist}
+            </tbody>
+        </table>
+        <div class="page">
+        </div>
+    </div>
+</body>
+<script>
+    //删除
+    function del(data){
+        layer.confirm('确定要删除么？', {
+          btn: ['确定', '取消'] //可以无限个按钮
+        }, function(index, layero){
+            $.ajax({
+                type: "get",
+                url: "{:url('del')}",
+                data: {id:data},
+                success: function(data) {
+                    console.log(data);
+                    if(data.code=='1'){
+                        setTimeout(function(){
+                            location.href = data.url;
+                        },1000);
+                        layer.msg(data.msg);
+                    }else{
+                        layer.msg(data.msg);
+                    }
+                    return false;
+                }
+            });
+        });
+    }
+    //上下架
+    function updown(data){
+        layer.confirm('确定更改上下架状态么？', {
+          btn: ['确定', '取消'] //可以无限个按钮
+        }, function(index, layero){
+            $.ajax({
+                type: "get",
+                url: "{:url('updown')}",
+                data: {id:data},
+                success: function(data) {
+                    console.log(data);
+                    if(data.code=='1'){
+                        setTimeout(function(){
+                            location.href = data.url;
+                        },1000);
+                        layer.msg(data.msg);
+                    }else{
+                        layer.msg(data.msg);
+                    }
+                    return false;
+                }
+            });
+        });
+    }
+    //新品
+    function news(data){
+        layer.confirm('确定要更改新品状态么？', {
+          btn: ['确定', '取消'] //可以无限个按钮
+        }, function(index, layero){
+            $.ajax({
+                type: "get",
+                url: "{:url('news')}",
+                data: {id:data},
+                success: function(data) {
+                    console.log(data);
+                    if(data.code=='1'){
+                        setTimeout(function(){
+                            location.href = data.url;
+                        },1000);
+                        layer.msg(data.msg);
+                    }else{
+                        layer.msg(data.msg);
+                    }
+                    return false;
+                }
+            });
+        });
+    }
+    //热品
+    function hot(data){
+        layer.confirm('确定要更改热品状态么？', {
+          btn: ['确定', '取消'] //可以无限个按钮
+        }, function(index, layero){
+            $.ajax({
+                type: "get",
+                url: "{:url('hot')}",
+                data: {id:data},
+                success: function(data) {
+                    console.log(data);
+                    if(data.code=='1'){
+                        setTimeout(function(){
+                            location.href = data.url;
+                        },1000);
+                        layer.msg(data.msg);
+                    }else{
+                        layer.msg(data.msg);
+                    }
+                    return false;
+                }
+            });
+        });
+    }
+    function look(data){
+        $('.voucher'+data).attr('style',"display:block;");
+    }
+    function out(data){
+        $(data).attr('style',"display:none;")
+    }
+</script>
+
+</html>

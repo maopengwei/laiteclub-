@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>无标题文档</title>
+    <link href="__STATIC__/admin/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="__STATIC__/admin/css/select.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="__STATIC__/mine/jquery/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/admin/js/jquery.idTabs.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/admin/js/select-ui.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/admin/editor/kindeditor.js"></script>
+    <script type="text/javascript" src="__STATIC__/mine/layer/layer.js"></script>
+    <script type="text/javascript">
+    // KE.show({
+    //     id: 'content7',
+    //     cssPath: './index.css'
+    // });
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function(e) {
+        $(".select1").uedSelect({
+            width: 345
+        });
+        $(".select2").uedSelect({
+            width: 167
+        });
+        $(".select3").uedSelect({
+            width: 100
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <div class="place">
+        <span>位置：</span>
+        <ul class="placeul">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">网站配置</a></li>
+        </ul>
+    </div>
+    <div class="tools">
+        <ul class="toolbar" style="padding:3px;">
+            <li class="click"><span><img src="__STATIC__/admin/images/t04.png" /></span><a href="index">网站信息</a></li>
+        </ul>
+        <ul class="toolbar1">
+        </ul>
+    </div>
+    <div class="formbody">
+        <ul class="forminfo">
+                
+                <li>
+                    <label>注册人数<b>*</b></label>
+                    <input type="text" class="dfinput"  value="{$register_count}" style="width:250px;" />
+                </li>
+                <form>
+                <li>
+                    <label>日返总金额<b>*</b></label>
+                    <input type="text" class="dfinput" name="back"  value="{$system['back']}" style="width:250px;" />
+                </li>
+                <li>
+                    <label>莱特币<b>*</b></label>
+                    <input type="text" class="dfinput" name="litecoin"  value="{$system['litecoin']}" style="width:250px;" />
+                </li>
+                <li>
+                    <label>复消币<b>*</b></label>
+                    <input type="text" class="dfinput" name="after"  value="{$system['after']}" style="width:250px;" />
+                </li>
+                <li>
+                    <label>ICO<b>*</b></label>
+                    <input type="text" class="dfinput" name="ico"  value="{$system['ico']}" style="width:250px;" />
+                </li>
+                <li>
+                    <label>股权<b>*</b></label>
+                    <input type="text" class="dfinput" name="stock"  value="{$system['stock']}" style="width:250px;" />
+                </li>
+                <li>
+                    <label>提现手续费<b>*</b></label>
+                    <input type="text" class="dfinput" name="service_charge"  value="{$system['service_charge']}" style="width:250px;" />
+                </li>
+                <li>
+                    <label>充值地址<b>*</b></label>
+                    <input type="text" class="dfinput" name="gathering_address"  value="{$system['gathering_address']}" style="width:250px;" />
+                </li>
+                <li>
+                    <label>开启ico<b>*</b></label>
+                    <input type="text" class="dfinput" name="gathering_address"  value="{$system['gathering_address']}" style="width:250px;" />
+                </li>
+                <li>
+                    <label>ico充值地址<b>*</b></label>
+                    <input type="text" class="dfinput" name="gathering_address"  value="{$system['gathering_address']}" style="width:250px;" />
+                </li>
+                <li>
+                    <label>开启股份<b>*</b></label>
+                    <input type="text" class="dfinput" name="gathering_address"  value="{$system['gathering_address']}" style="width:250px;" />
+                </li>
+                <li>
+                    <label>股份充值地址<b>*</b></label>
+                    <input type="text" class="dfinput" name="gathering_address"  value="{$system['gathering_address']}" style="width:250px;" />
+                </li>
+                 <li>
+                    <label>网站运行<b>*</b></label>
+                    <cite>
+                        <input name="zt" type="radio" value="1">开启&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input name="zt" type="radio" value="0">关闭
+                    </cite>
+                </li>
+                </form>
+                <li>
+                    <label>&nbsp;</label>
+                    <input type="button" class="btn" value="保存信息" />
+                </li>
+        </ul>
+        <script type="text/javascript">
+        $('.tablelist tbody tr:odd').addClass('odd');
+        //点选框选中
+         $(function(){
+            $("input[name='zt']").each(function(){  
+                if($(this).val() == '{$system['zt']}'){  
+                    $(this).prop( "checked", true );  
+                }  
+            });
+            $('.btn').click(function() {
+                $.ajax({
+                    type: "POST",
+                    url: "{:url('index')}",
+                    data: $("form").serialize(),
+                    success: function(data) {
+                        console.log(data)
+                        if(data.code=='1'){
+                            setTimeout(function(){
+                                location.href = data.url;
+                            },1000);
+                            layer.msg(data.msg);
+                        }else{
+                            layer.msg(data.msg);
+                        }
+                    }
+                });
+            });
+        })
+
+        </script>
+    </div>
+</body>
+
+</html>

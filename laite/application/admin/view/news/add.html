@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>无标题文档</title>
+    <link href="__STATIC__/admin/css/style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="__STATIC__/mine/jquery/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/mine/layer/layer.js"></script>
+    <script type="text/javascript" charset="utf-8" src="__STATIC__/edit/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="__STATIC__/edit/ueditor.all.min.js"> </script>
+    <script type="text/javascript" charset="utf-8" src="__STATIC__/edit/lang/zh-cn/zh-cn.js"></script>
+</head>
+
+<body>
+    <div class="place">
+        <span>位置：</span>
+        <ul class="placeul">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">添加新闻</a></li>
+        </ul>
+    </div>
+    <div class="tools">
+        <ul class="toolbar" style="padding:3px;">
+            <li class="click"><span><img src="__STATIC__/admin/images/t04.png" /></span><a href="index">列表</a></li>
+        </ul>
+        <ul class="toolbar1">
+            
+        </ul>
+    </div>
+    <div class="formbody">
+        <ul class="forminfo">
+            <form class="add">
+                <li>
+                    <label>标题<b>*</b></label>
+                    <input name="title" type="text" class="dfinput" style="width:250px;" />
+                </li>
+                <li>
+                    <label>内容<b>*</b></label>
+                    <script id="editor" type="text/plain" style="width:1024px;height:500px;"></script>
+                </li>
+            </form>
+            <li>
+                <label>&nbsp;</label>
+                <input type="button" class="btn" value="保存信息" />
+            </li>
+        </ul>
+        <script type="text/javascript">
+        $(function(){
+            UE.getEditor('editor');
+        })
+        $('.tablelist tbody tr:odd').addClass('odd');
+        $('.btn').click(function() {
+            var title=$('input[name="title"]').val();
+            var arr=[];
+            arr.push(UE.getEditor('editor').getContent());
+
+            console.log(1)
+            console.log(title)
+            console.log(arr)
+            $.ajax({
+                type: "POST",
+                url: "{:url('add')}",
+                data: {content:arr,title:title},
+                success: function(data) {
+                    console.log(data)
+                    setTimeout(function(){
+                        location.href = data.url;
+                    },1000);
+                    layer.msg(data.msg);
+                }
+            });
+        });
+        </script>
+    </div>
+</body>
+
+</html>

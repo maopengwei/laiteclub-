@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>无标题文档</title>
+    <link href="__STATIC__/admin/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="__STATIC__/admin/css/select.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="__STATIC__/mine/jquery/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/admin/js/jquery.idTabs.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/admin/js/select-ui.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="__STATIC__/edit/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="__STATIC__/edit/ueditor.all.min.js"> </script>
+    <script type="text/javascript" charset="utf-8" src="__STATIC__/edit/lang/zh-cn/zh-cn.js"></script>
+    <script type="text/javascript" src="__STATIC__/admin/editor/kindeditor.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(e) {
+        $(".select1").uedSelect({
+            width: 345
+        });
+        $(".select2").uedSelect({
+            width: 167
+        });
+        $(".select3").uedSelect({
+            width: 100
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <div class="place">
+        <span>位置：</span>
+        <ul class="placeul">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">添加产品</a></li>
+        </ul>
+    </div>
+    <div class="tools">
+        <ul class="toolbar" style="padding:3px;">
+            <li class="click"><span><img src="__STATIC__/admin/images/t04.png" /></span><a href="index">列表</a></li>
+        </ul>
+        <ul class="toolbar1">
+            
+        </ul>
+    </div>
+    <div class="formbody">
+        <ul class="forminfo">
+            <form  action="addcl" enctype="multipart/form-data" method="post">
+                <li>
+                    <label>父类<b>*</b></label>
+                    <div class="vocation">
+                        <select class="select1" name="pid" style="width:80px;">
+                            <option></option>
+                            {volist name="list" id="v"}
+                                <option value="{$v.id}">{$v.name}</option>
+                            {/volist}
+                        </select>
+                    </div>
+                </li>
+                <li>
+                    <label>产品名称<b>*</b></label>
+                    <input name="name" type="text" class="dfinput" style="width:250px;" />
+                </li>
+                <li>
+                    <label>原价<b>*</b></label>
+                    <input name="old_price" type="text" class="dfinput" style="width:250px;" />
+                </li>
+                 <li>
+                    <label>现价<b>*</b></label>
+                    <input name="user_price" type="text" class="dfinput" style="width:250px;" />
+                </li>
+                <li>
+                    <label>会员价<b>*</b></label>
+                    <input name="price" type="text" class="dfinput" style="width:250px;" />
+                </li>
+               
+                <li>
+                    <label>主图<b>*</b></label>
+                    <div id="preview"></div>
+                    <p>
+                    <img src="" width='140' height='140' id='face-img' />
+                    <p>
+                    <input name="pic" type="file" onchange="preview(this)"/>
+                </li>
+                <li>
+                    <label>内容<b>*</b></label>
+                    <script id="editor" type="text/plain" style="width:1024px;height:500px;"></script>
+                </li>
+            <li>
+                <label>&nbsp;</label>
+                <input type="submit" class="btn" value="保存信息" />
+            </li>
+            </form>
+        </ul>
+        <script type="text/javascript">
+        $(function(){
+            UE.getEditor('editor');
+        })
+        $('.tablelist tbody tr:odd').addClass('odd');
+        
+        function preview(file){  
+            $('#face-img').attr('style','display:none;');
+            var prevDiv = document.getElementById('preview');  
+            if (file.files && file.files[0]){  
+                 var reader = new FileReader();  
+                 reader.onload = function(evt){  
+                 prevDiv.innerHTML = '<img src="' + evt.target.result + '" />';  
+            }    
+                reader.readAsDataURL(file.files[0]);  
+            }else{
+                prevDiv.innerHTML = '<div class="img" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>';  
+             }  
+         }  
+        </script>
+    </div>
+</body>
+
+</html>

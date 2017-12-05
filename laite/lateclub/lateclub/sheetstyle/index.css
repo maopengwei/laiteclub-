@@ -1,0 +1,40 @@
+.buy{
+	min-height: 300px;
+	_height:300px
+	border: 1px solid #ddd;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	border: 1px solid #ddd;
+	box-shadow: 5px 5px 5px #ddd;
+	border-radius: 20px;
+	overflow: hidden;
+	
+	}
+.buy h3{
+	background: #24b2ea;
+	margin-bottom: 0;
+	margin-top: 0;	
+	height: 50px;
+	line-height: 50px;
+	padding-left: 10%;
+	color: #fff;
+}
+.buy .form-group{
+	margin-left: 10%;
+	margin-top: 7%;
+}
+.submitbtn{
+	margin-left: 20%;
+	margin-top: 5%;
+}
+#exampleInputName2,#exampleInputEmail2{
+	border-radius: 10px;
+	
+}
+#exampleInputName2:hover{
+	border-color: #abe0f7;
+}
+#exampleInputEmail2:hover{
+	border-color: #abe0f7;
+}
+

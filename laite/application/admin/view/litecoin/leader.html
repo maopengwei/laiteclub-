@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>无标题文档</title>
+    <link href="__STATIC__/admin/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="__STATIC__/admin/css/select.css" rel="stylesheet" type="text/css" />
+    <link href="__STATIC__/admin/css/pages.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="__STATIC__/mine/jquery/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/admin/js/jquery.idTabs.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/admin/js/select-ui.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/admin/editor/kindeditor.js"></script>
+    <script type="text/javascript" src="__STATIC__/mine/layer/layer.js"></script>
+    <script type="text/javascript">
+    // KE.show({
+    //     id: 'content7',
+    //     cssPath: './index.css'
+    // });
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function(e) {
+        $(".select1").uedSelect({
+            width: 345
+        });
+        $(".select2").uedSelect({
+            width: 167
+        });
+        $(".select3").uedSelect({
+            width: 100
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <div class="place">
+        <span>位置：</span>
+        <ul class="placeul">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">莱特币记录</a></li>
+        </ul>
+    </div>
+    <div class="tools">
+        <ul class="toolbar" style="padding:3px;">
+            <li class="click"><span><img src="__STATIC__/admin/images/t01.png" /></span><a href="add">赠送</a></li>
+        </ul>
+        <ul class="toolbar1">
+        </ul>
+    </div>
+    <div class="formbody">
+        <ul class="seachform">
+            <form action="leader" method="get">
+            <li>
+                <label>用户</label>
+                <input name="user" type="text" class="scinput" value="{$Think.get.user}" />
+            </li>
+            <li>
+                <label>类型</label>
+                <div class="vocation">
+                    <select class="select3" name="type">
+                        <option></option>
+                        <option value="0">直推</option>
+                        <option value="1">注册</option>
+                        <option value="2">领导奖励</option>
+                    </select>
+                </div>
+            </li>
+            <li>
+                <label>&nbsp;</label>
+                <input type="submit" class="scbtn" value="查询" />
+            </li>
+            </form>
+            <script>
+                if('{$Think.get.type}'){
+                    $('form select[name="type"]').val('{$Think.get.type}');
+                }
+            </script>
+        </ul>
+        <p>·</p>
+        <table class="tablelist">
+            <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>账户1</th>
+                    <th>账户2</th>
+                    <th>数量</th>
+                    <th>时间</th>
+                    <th>类型</th>
+                </tr>
+            </thead>
+            <p>总数量：{$num?:0}</p>
+            <tbody>
+                {volist name='list' id='v'}
+                <tr>
+                    <td>{$v.id}</td>
+                    <td>{$v.uid}</td>
+                    <td>{$v.uid_two}</td>
+                    <td>{$v.num}</td>
+                    <td>{$v.add_time|date="Y-m-d H:i:s",###}</td>
+                    <td>{$v.type}</td>
+                </tr>
+                {/volist}
+            </tbody>
+        </table>
+        <div class="pages">
+           {$list->render()}
+        </div>
+    </div>
+</body>
+
+</html>

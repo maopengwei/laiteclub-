@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>无标题文档</title>
+    <link href="__STATIC__/admin/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="__STATIC__/admin/css/select.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="__STATIC__/mine/jquery/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/admin/js/jquery.idTabs.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/admin/js/select-ui.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/admin/editor/kindeditor.js"></script>
+    <script type="text/javascript" src="__STATIC__/mine/layer/layer.js"></script>
+    <script type="text/javascript">
+    // KE.show({
+    //     id: 'content7',
+    //     cssPath: './index.css'
+    // });
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function(e) {
+        $(".select1").uedSelect({
+            width: 345
+        });
+        $(".select2").uedSelect({
+            width: 167
+        });
+        $(".select3").uedSelect({
+            width: 100
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <div class="place">
+        <span>位置：</span>
+        <ul class="placeul">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">轮播图</a></li>
+        </ul>
+    </div>
+    <div class="tools">
+        <ul class="toolbar" style="padding:3px;">
+            <li class="click"><span><img src="__STATIC__/admin/images/t01.png" /></span><a href="add">添加</a></li>
+        </ul>
+        <ul class="toolbar1">
+        </ul>
+    </div>
+    <div class="formbody">
+        <ul class="seachform">
+            <form action="index" method="get">
+            <li>
+                <label>名字</label>
+                <input name="name" type="text" class="scinput" value="{$Think.get.name}" />
+            </li>
+            <li>
+                <label>&nbsp;</label>
+                <input type="submit" class="scbtn" value="查询" />
+            </li>
+            </form>
+            <script>
+                if('{$Think.get.type}'){
+                    $('form select[name="type"]').val('{$Think.get.type}');
+                }
+            </script>
+        </ul>
+        <p>·</p>
+        <table class="tablelist">
+            <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>名称</th>
+                    <th>图片</th>
+                    <th>添加时间</th>
+                    <th>排序</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {volist name='list' id='v'}
+                <tr>
+                    <td>{$v.id}</td>
+                    <td>{$v.name}</td>
+                    <td onclick="look({$v.id})">点击查看</td>
+                     <td>{$v.add_time|date="Y-m-d H:i:s",###}</td>
+                    <td>
+                        {if condition="$v.sort eq 0"}默认{/if}
+                        {if condition="$v.sort eq 1"}3{/if}
+                        {if condition="$v.sort eq 2"}2{/if}
+                        {if condition="$v.sort eq 3"}1{/if}
+                    </td>
+                    <td>
+                        <a  onclick="del({$v.id})">删除</a>
+                        <a  href="edit?id={$v.id}">修改</a>
+                    </td>
+                </tr>
+                <img class="voucher{$v.id}" src="{$v.pic}" onclick="out(this)" style="display:none;">
+                {/volist}
+            </tbody>
+        </table>
+        <div>
+            
+        </div>
+    </div>
+</body>
+<script>
+    //删除
+    function del(data){
+        layer.confirm('确定要删除么？', {
+          btn: ['确定', '取消'] //可以无限个按钮
+        }, function(index, layero){
+            $.ajax({
+                type: "get",
+                url: "{:url('del')}",
+                data: {id:data},
+                success: function(data) {
+                    if(data.code=='1'){
+                        setTimeout(function(){
+                            location.href = data.url;
+                        },1000);
+                        layer.msg(data.msg);
+                    }else{
+                        layer.msg(data.msg);
+                    }
+                    return false;
+                }
+            });
+        });
+    }
+    //看图
+    function look(data){
+        $('.voucher'+data).attr('style',"display:block;");
+    }
+    function out(data){
+        $(data).attr('style',"display:none;")
+    }
+</script>
+</html>

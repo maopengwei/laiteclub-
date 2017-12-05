@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>无标题文档</title>
+    <link href="__STATIC__/admin/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="__STATIC__/admin/css/select.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="__STATIC__/mine/jquery/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/admin/js/jquery.idTabs.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/admin/js/select-ui.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/admin/editor/kindeditor.js"></script>
+    <script type="text/javascript" src="__STATIC__/mine/layer/layer.js"></script>
+    <script type="text/javascript">
+    // KE.show({
+    //     id: 'content7',
+    //     cssPath: './index.css'
+    // });
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function(e) {
+        $(".select1").uedSelect({
+            width: 345
+        });
+        $(".select2").uedSelect({
+            width: 167
+        });
+        $(".select3").uedSelect({
+            width: 100
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <div class="place">
+        <span>位置：</span>
+        <ul class="placeul">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">赠送激活码</a></li>
+        </ul>
+    </div>
+    <div class="tools">
+        <ul class="toolbar" style="padding:3px;">
+            <li class="click"><span><img src="__STATIC__/admin/images/t04.png" /></span><a href="index">列表</a></li>
+        </ul>
+        <ul class="toolbar1">
+            
+        </ul>
+    </div>
+    <div class="formbody">
+        <ul class="forminfo">
+            <form action="edit?id={$info.id}" method="post" enctype="multipart/form-data">
+                <li>
+                    <label>名称<b>*</b></label>
+                    <input type="text" class="dfinput" name="name" value="{$info.name}" style="width:250px;" />
+                </li>
+                <li>
+                    <label>主图<b>*</b></label>
+                    <div id="preview"></div>
+                    <p>
+                    <img src="{$info.pic}" width='140' height='140' id='face-img' />
+                    <p>
+                    <input name="pic" type="file" onchange="preview(this)"/>
+                </li>
+                <li>
+                    <label>等级</label>
+                    <cite>
+                        <input name="sort" type="radio" value="3">第一个&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input name="sort" type="radio" value="2">第二个&nbsp;&nbsp;&nbsp;&nbsp;                        
+                        <input name="sort" type="radio" value="1">第三个&nbsp;&nbsp;&nbsp;&nbsp;                        
+                        <input name="sort" type="radio" value="0">默认&nbsp;&nbsp;&nbsp;&nbsp;                        
+                    </cite>
+                </li>
+            
+            <li>
+                <label>&nbsp;</label>
+                <input type="submit" class="btn" value="确定" />
+            </li>
+            </form>
+        </ul>
+        <script type="text/javascript">
+        $(function(){
+            $("form input[name='sort']").each(function(){  
+                if($(this).val() == '{$info.sort}'){  
+                    $(this).prop( "checked", true );  
+                }  
+            });
+        })
+            $('.tablelist tbody tr:odd').addClass('odd');
+
+            function preview(file){  
+                $('#face-img').attr('style','display:none;');
+                var prevDiv = document.getElementById('preview');  
+                if (file.files && file.files[0]){  
+                     var reader = new FileReader();  
+                     reader.onload = function(evt){  
+                     prevDiv.innerHTML = '<img src="' + evt.target.result + '" />';  
+                }    
+                    reader.readAsDataURL(file.files[0]);  
+                }else{
+                    prevDiv.innerHTML = '<div class="img" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>';  
+                 }  
+            }  
+        </script>
+    </div>
+</body>
+
+</html>

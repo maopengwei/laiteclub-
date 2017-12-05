@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{$Think.lang.laitejulebu}</title>
+    <!-- 手机样式标签 -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="__STATIC__/index/lib/css/bootstrap.min.css" />
+    <!-- Font 文件 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- jvectormap地图插件 -->
+    <link rel="stylesheet" type="text/css" href="__STATIC__/index/lib/css/jquery-jvectormap-1.2.2.css" />
+    <!-- 本地样式文件-->
+    <link rel="stylesheet" type="text/css" href="__STATIC__/index/sheetstyle/AdminLTE.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/index/lib/css/_all-skins.min.css" />
+</head>
+<style type="text/css">
+    .send-button{
+        border:0;
+        display: block;
+        width: 100px;
+        text-align: center;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+        background: #ea6f5a;
+        color: #fff;
+        font-size: 12px;
+        line-height: 30px;
+        cursor: pointer;
+    }
+</style>
+
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        
+        {include file="layout/navigation" /}
+        <div class="content-wrapper">
+            <section class="content-header">
+                <h1>{$Think.lang.zhucehuiyuan}</h1>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="index.html"><i class="fa fa-dashboard"></i>{$Think.lang.shouye}</a>
+                    </li>
+                    <li class="active">{$Think.lang.zhucehuiyuan}</li>
+                </ol>
+            </section>
+            <!-- Main content -->
+            <section class="content">
+                <form>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="nav-tabs-custom">
+                                <div class="tab-content">
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <label>{$Think.lang.wodetuiguanglianjie}</label>
+                                            <div class="form-group">
+                                                <input type="text" value="{$url}" class="form-control" >
+                                                <label class="control-label" for="inputError"></label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>{$Think.lang.yonghuming}</label>
+                                            <div class="form-group">
+                                                <input type="text" value="" class="form-control" name="user">
+                                                <label class="control-label" for="inputError" id="prompt"></label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>{$Think.lang.huiyuanxingming}</label>
+                                            <div class="form-group">
+                                                <input type="text" value="" class="form-control" id="" name="theme">
+                                                <label class="control-label" for="inputError" id="prompt"></label>
+                                            </div>
+                                        </div>
+                                         <div class="form-group">
+                                            <label>{$Think.lang.shenfenzheng}/{$Think.lang.huzhao}</label>
+                                            <div class="form-group">
+                                                <input type="text" value="" class="form-control" id="" name="identity">
+                                                <label class="control-label" for="inputError" id="prompt"></label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>{$Think.lang.shoujihao}</label>
+                                            <div class="form-group">
+                                                <input type="text" value="" class="form-control" id="" name="phone">
+                                                <label class="control-label" for="inputError" id="prompt"></label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>{$Think.lang.dianziyouxiang}</label>
+                                            <div class="form-group">
+                                                <input type="text" value="" class="form-control" id="" name="email">
+                                                <label class="control-label" for="inputError" id="prompt"></label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>{$Think.lang.tuijianren}</label>
+                                            <div class="form-group">
+                                                <input type="text" value="" class="form-control" id="" name="tname">
+                                                <label class="control-label" for="inputError" id="prompt"></label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>{$Think.lang.zhuceren}</label>
+                                            <div class="form-group">
+                                                <input type="redonly" class="form-control" id="" name="zname" value="{$uname}" disabled>
+                                                <label class="control-label" for="inputError" id="prompt"></label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>{$Think.lang.denglumima}</label>
+                                            <div class="form-group">
+                                                <input type="password" value="" class="form-control" id="" name="user_pass">
+                                                <label class="control-label" for="inputError" id="prompt"></label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>{$Think.lang.anquanmima}</label>
+                                            <div class="form-group">
+                                                <input type="password" value="" class="form-control" id="" name="second_pass">
+                                                <label class="control-label" for="inputError" id="prompt"></label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group" style="position: relative;">
+                                            <label>{$Think.lang.yanzhengma}</lable>
+                                            <div class="form-group">
+                                                <input type="text" name="note_code" class="form-control" id="" name="second_pass">
+                                                <span style="position: absolute;right: 20px;left: 200px;top: 21px;" id="huoqu" onclick="return gain()" class="send-button">{$Think.lang.fasongyanzhengma}</span>
+                                            </div>
+                                        </div>
+                                        <input type="submit" disabled="disabled" name="submit" id="regsubmit" onclick="return register()" value="{$Think.lang.queren}" class="btn btn-primary pull-right">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+        {include file="layout/footer" /}
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Create the tabs -->
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <!-- Home tab content -->
+                <div class="tab-pane" id="control-sidebar-home-tab">
+                </div>
+                <!-- /.tab-pane -->
+                <!-- Settings tab content -->
+                <div class="tab-pane" id="control-sidebar-settings-tab">
+                </div>
+                <!-- /.tab-pane -->
+            </div>
+        </aside>
+        <!-- /.control-sidebar -->
+        <!-- Add the sidebar's background. This div must be placed
+       immediately after the control sidebar -->
+        <div class="control-sidebar-bg"></div>
+    </div>
+    <!-- ./wrapper -->
+    <script src="__STATIC__/index/lib/js/memberregister.js"></script>
+    <!-- jQuery 2.2.3 -->
+    <!-- jQuery 2.2.3 -->
+    <script src="__STATIC__/index/lib/js/jquery-2.2.3.min.js"></script>
+    <script src="__STATIC__/mine/layer/layer.js"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="__STATIC__/index/lib/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="__STATIC__/index/lib/js/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <script src="__STATIC__/index/lib/js/app.min.js"></script>
+    <!-- Sparkline -->
+    <script src="__STATIC__/index/lib/js/jquery.sparkline.min.js"></script>
+    <!-- jvectormap -->
+    <script src="__STATIC__/index/lib/js/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="__STATIC__/index/lib/js/jquery-jvectormap-world-mill-en.js"></script>
+    <!-- SlimScroll 1.3.0 -->
+    <script src="__STATIC__/index/lib/js/jquery.slimscroll.min.js"></script>
+    <!-- ChartJS 1.0.1 -->
+    <script src="__STATIC__/index/lib/js/Chart.min.js"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <!--<script src="dist/js/pages/dashboard2.js"></script>-->
+    <!-- AdminLTE for demo purposes -->
+    <script src="__STATIC__/index/lib/js/demo.js"></script>
+</body>
+<script type="text/javascript">
+$(".form-control").keyup(function() {
+    if ($(this).val() == "") {
+        $(this).siblings("#prompt").html("此项不能为空");
+        $(this).parent().addClass("has-error");
+        $("#regsubmit").prop("disabled", true);
+        $(".1prompt").removeClass("hidden");
+        console.log("1");
+    } else {
+        $(this).siblings("#prompt").html("");
+        $(this).parent().removeClass("has-error");
+        var inputArray = $('#regform input');
+        for (var int = 0; int < inputArray.length; int++) {
+            if (inputArray[int].value == null || inputArray[int].value == '') {
+                $(".1prompt").removeClass("hidden");
+                return;
+            }
+        }
+        $("#regsubmit").prop("disabled", false);
+        $(".1prompt").addClass("hidden");
+    }
+});
+//获取验证码
+function gain() {
+    console.log(123);
+    $('#huoqu').removeAttr('onclick');
+    var data = $('input[name="phone"]').val();
+    requestAuthcode($('#huoqu'), data);
+}
+//发送手机短信验证码
+function requestAuthcode(obj, aug) {
+    $.get("/index/login/sendSMS/?mobile=" + aug, function(data) {
+        layer.msg(data.msg);
+        if (data['status'] == 'failed') {
+            $("#huoqu").attr('onclick', 'return gain()');
+        } else {
+            countDown(obj, 60, '获取', '秒后获取');
+        }
+    },"json");
+}
+//验证码60秒递减
+function countDown(obj, sec, oritxt, info) {
+    if (sec == 0) {
+        obj.text(oritxt);
+        obj.attr('onClick', 'gain()');
+    } else {
+        obj.text(sec + info);
+        sec--;
+        setTimeout(function() {
+            countDown(obj, sec, oritxt, info);
+        }, 1000);
+    }
+}
+function register(){
+    $.ajax({
+        type:"post",
+        url:"{:url('register')}",
+        data:$('form').serialize(),
+        success:function(data){
+            console.log(data);
+            layer.msg(data.msg);
+            if(data.code==1){
+                setTimeout(function(){
+                    location.href=data.url;
+                },1000)
+            }
+        }
+    })
+    return false;
+}
+</script>
+
+</html>

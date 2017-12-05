@@ -1,0 +1,169 @@
+<header class="main-header">
+    <div class="user-panel" style="position:fixed;left:0;top:0;height: 65px">
+            <div class="pull-left image">
+                <img src="__STATIC__/index/lib/imgs/user3-128x128.jpg" class="img-circle" alt="User Image">
+            </div>
+            <div class="pull-left info">
+                <p>{$yonghu}</p>
+                <i class="fa fa-circle text-success"></i> {$Think.lang.zaixian}
+            </div>
+    </div>
+    
+    <nav class="navbar navbar-static-top">
+        
+        
+                    <div class="logo" style="width: 32%;height: 50px;position: fixed;">
+                        <img src="__STATIC__/index/lib/imgs/mlogo.png" style="width: 100%;height: 100%">
+                    </div>
+        <div class="navbar-custom-menu">
+
+            <ul class="nav navbar-nav">
+                <li class="dropdown user user-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <img src="__STATIC__/index/lib/imgs/user3-128x128.jpg" class="user-image" alt="User Image">
+                                    <span class="hidden-xs">{$yonghu}</span>
+                                </a>
+                    <ul class="dropdown-menu">
+                        <!-- User image -->
+                        <li class="user-header">
+                            <img src="__STATIC__/index/lib/imgs/user3-128x128.jpg" class="img-circle" alt="User Image">
+                            <p>
+                                {$yonghu}
+                                <small>您已成为本站会员{$tian_num}天</small>
+                            </p>
+                        </li>
+                        <li class="user-footer">
+                            <div class="pull-right">
+                                <a href="/index/login/logout.html" class="btn btn-default btn-flat">登出</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+              <!--   <li>
+                  <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+              </li> -->
+            </ul>
+        </div>
+    </nav>
+</header>
+<aside class="main-sidebar" style="margin-top: 14px">
+    <section class="sidebar">
+        <!-- Sidebar user panel -->
+        <ul class="sidebar-menu">
+            <li class="header">{$Think.lang.zhucaidan}</li>
+            <!-- 系统首页 -->
+            <li class="treeview">
+                <a href="/index/index/index.html">
+                    <i class="fa fa-dashboard"></i> <span>{$Think.lang.xitongshouye}</span>
+                </a>
+            </li>
+            <!-- 个人资料 -->
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-table"></i> <span>{$Think.lang.gerenziliao}</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/index/user/index.html"><i class="fa fa-circle-o"></i>{$Think.lang.gerenxinxi}</a></li>
+                    <li><a href="/index/user/change.html"><i class="fa fa-circle-o"></i>{$Think.lang.xiugaimima}</a></li>
+                </ul>
+            </li>
+            <!-- 财务管理 -->
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-edit"></i> <span>{$Think.lang.caiwuguanli}</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/index/wealth/index.html"><i class="fa fa-circle-o"></i> {$Think.lang.jihuomingxi}</a></li>
+                    <li><a href="/index/wealth/return_list.html"><i class="fa fa-circle-o"></i> {$Think.lang.meirifenhong}</a></li>
+                    <li><a href="/index/wealth/leader.html"><i class="fa fa-circle-o"></i>{$Think.lang.jianglimingxi}</a></li>
+                    <li><a href="/index/wealth/cash.html"><i class="fa fa-circle-o"></i>{$Think.lang.chongzhitixian}</a></li>
+                    <li><a href=" /index/wealth/cash_list.html"><i class="fa fa-circle-o"></i>{$Think.lang.xianjinjilu}</a></li>
+                </ul>
+            </li>
+            <!-- 业务管理 -->
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-laptop"></i>
+                    <span>{$Think.lang.yewuguanli}</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/index/user/register.html"><i class="fa fa-circle-o"></i>{$Think.lang.zhucehuiyuan}</a></li>
+                    <li>
+                        <a href="/index/team/register.html"><i class="fa fa-circle-o"></i>{$Think.lang.zhuceliebiao}</a>
+                    </li>
+                    <li><a href="/index/user/active.html"><i class="fa fa-circle-o"></i>{$Think.lang.jihuohuiyuan}</a></li>
+                    <li>
+                        <a href="/index/team/team.html"><i class="fa fa-circle-o"></i>{$Think.lang.wodetuandui}</a>
+                    </li>
+                    
+                </ul>
+            </li>
+            <!-- <li class="treeview">
+                <a href="">
+                    <i class="fa fa-pie-chart"></i>
+                    <span>{$Think.lang.tuanduiguanli}</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li>
+                        <a href="/index/team/direct.html"><i class="fa fa-circle-o"></i> 推荐列表</a>
+                        
+                    </li>
+                    
+                    
+                </ul>
+            </li> -->
+            <!-- 联系我们 -->
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-files-o"></i> <span>{$Think.lang.lianxiwomen}</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/index/news/relation.html"><i class="fa fa-circle-o"></i>{$Think.lang.woyaoliuyan}</a></li>
+                    <li><a href="/index/news/relation_list.html"><i class="fa fa-circle-o"></i>{$Think.lang.liuyanliebiao}</a></li>
+                </ul>
+            </li>
+            
+            <!-- 语言切换 -->
+            <li class="treeview">
+                <a href="">
+                    <i class="fa fa-pie-chart"></i>
+                    <span>{$Think.lang.yuyanqiehuan}</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="?lang=zh-cn"><i class="fa fa-circle-o"></i>中文简体</a></li>
+                    <li><a href="?lang=zh-tw"><i class="fa fa-circle-o"></i>中文繁體</a></li>
+                    <li><a href="?lang=en-us"><i class="fa fa-circle-o"></i>Englist</a></li>
+                </ul>
+            </li>
+            <!-- 安全退出 -->
+            
+           
+            
+            <li class="treeview">
+                <a href="/index/login/logout.html">
+                    <i class="fa fa-table"></i> <span>{$Think.lang.anquantuichu}</span>
+                    <span class="pull-right-container">
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </section>
+</aside>

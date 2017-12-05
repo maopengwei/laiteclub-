@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{$Think.lang.laitejulebu}</title>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <!-- Bootstrap -->
+        <link rel="stylesheet" type="text/css" href="__STATIC__/index/lib/css/bootstrap.min.css"/>
+        <!-- Font 文件 -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+        <!-- jvectormap地图插件 -->
+        <link rel="stylesheet" type="text/css" href="__STATIC__/index/lib/css/jquery-jvectormap-1.2.2.css"/>
+        <!-- 本地样式文件-->
+        <link rel="stylesheet" type="text/css" href="__STATIC__/index/sheetstyle/AdminLTE.css"/>
+        <link rel="stylesheet" type="text/css" href="__STATIC__/index/lib/css/_all-skins.min.css"/>
+    </head>
+
+    <body class="hold-transition skin-blue sidebar-mini">
+        <div class="wrapper">
+
+           
+            {include file="layout/navigation"}
+            <div class="content-wrapper">
+                <section class="content-header">
+                    <h1>{$Think.lang.wodexinxi}</h1>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html"><i class="fa fa-dashboard"></i>{$Think.lang.shouye}</a>
+                        </li>
+                        <li class="active">{$Think.lang.wodexinxi}</li>
+                    </ol>
+                </section>
+
+                <!-- Main content -->
+                <section class="content">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="nav-tabs-custom">
+                                <div class="tab-content">
+                                    <div class="box-body">
+                                        <div class="callout callout-warning">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                        <div class="box-body">
+                                            <div class="form-group">
+                                                <label>{$Think.lang.yonghuming}</label>
+                                                <div class="form-group">
+                                                    <input type="text" value="{$info.user}" name="mymoney" id="mymoney" class="form-control" disabled/>
+                                                    <input type="hidden" name="method" id="method" value="隐藏的input" />
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label>{$Think.lang.huiyuanxingming}</label>
+                                                <div class="form-group">
+                                                    <input type="text" value="{$info.theme}" name="mymoney" id="mymoney" class="form-control" disabled/>
+                                                    <input type="hidden" name="method" id="method" value="隐藏的input" />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>{$Think.lang.shoujihao}</label>
+                                                <div class="form-group">
+                                                    <input type="tel" value="{$info.phone}" name="username" id="username" class="form-control zzinput" placeholder="您的手机号" />
+                                                    <label class="control-label  " id="prompt"></label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>{$Think.lang.youxiang}</label>
+                                                <div>
+                                                    <input type="text" value="{$info.email}" name="howmoney" id="howmoney"  class="form-control zzinput" placeholder="" />
+
+                                                    <label class="control-label " id="prompt"></label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="lever-title">{$Think.lang.dengji}</label>
+                                                <br>
+                                               <input type="radio" name="level" value="0" class='lever-input'> &nbsp;<span>{$Think.lang.putonghuiyuan}</span>
+                                                <input type="radio" name="level" value="1" class='lever-input'>&nbsp;<span>{$Think.lang.baodanzhongxin}</span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>{$Think.lang.zhuceshijian}</label>
+                                                <div class="form-group">
+                                                    <input type="text" value="{$info.add_time|date='Y-m-d H:i:s',###}" name="howmoney" id="howmoney"  class="form-control zzinput" placeholder="" />
+                                                    <label class="control-label  " id="prompt"></label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>{$Think.lang.laitebiqianbao}</label>
+                                                <div class="form-group">
+                                                    <input type="text" value="{$info.detail.litecoin_wallet}" name="" id="howmoney"  class="form-control zzinput" placeholder="" />
+                                                    <label class="control-label  " id="prompt"></label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>{$Think.lang.fuxiaobiqianbao}</label>
+                                                <div class="form-group">
+                                                    <input type="text" value="{$info.detail.aftercoin_wallet}" name="howmoney" id="howmoney"  class="form-control zzinput" placeholder="" />
+                                                    <label class="control-label  " id="prompt"></label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>ICO</label>
+                                                <div class="form-group">
+                                                    <input type="text" value="{$info.detail.ico_wallet}" name="howmoney" id="howmoney"  class="form-control zzinput" placeholder="" />
+                                                    <label class="control-label  " id="prompt"></label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>{$Think.lang.gufen}</label>
+                                                <div class="form-group">
+                                                    <input type="text" value="{$info.detail.stock_wallet}" name="howmoney"  class="form-control zzinput" placeholder="" />
+                                                    <label class="control-label"></label>
+                                                </div>
+                                            </div> 
+                                            <form>  
+                                            <div class="form-group">
+                                                <label>{$Think.lang.tixiandizhi}</label>
+                                                <div class="form-group">
+                                                    <input type="text" value="{$info.detail.withdraw_address}" name="withdraw_address" class="form-control zzinput" placeholder="" />
+                                                    <label class="control-label"></label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>{$Think.lang.anquanmima}</label>
+                                                <div class="form-group">
+                                                    <input type="password" value="" name="second_pass" class="form-control zzinput" placeholder="" />
+                                                </div>
+                                            </div>  
+                                            <div class="form-group">
+                                                <div class="form-group">
+                                                    <input type="submit" id="submit" onclick="return queren()"  value="{$Think.lang.queren}" class=' btn btn-primary pull-right'> </div>
+                                            </div>
+                                            </form>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            </section>
+
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+
+        {include file="layout/footer" /}
+        <aside class="control-sidebar control-sidebar-dark">
+            <div class="tab-content">
+                <div class="tab-pane" id="control-sidebar-home-tab">
+                </div>
+                <div class="tab-pane" id="control-sidebar-settings-tab">
+                </div>
+            </div>
+        </aside>
+        <div class="control-sidebar-bg"></div>
+        </div>
+        <script src="__STATIC__/index/lib/js/jquery-2.2.3.min.js"></script>
+        <script src="__STATIC__/mine/layer/layer.js"></script>
+            <script src="__STATIC__/index/lib/js/bootstrap.min.js"></script>
+            <script src="__STATIC__/index/lib/js/fastclick.js"></script>
+            <script src="__STATIC__/index/lib/js/app.min.js"></script>
+            <script src="__STATIC__/index/lib/js/jquery.sparkline.min.js"></script>
+            <script src="__STATIC__/index/lib/js/jquery-jvectormap-1.2.2.min.js"></script>
+            <script src="__STATIC__/index/lib/js/jquery-jvectormap-world-mill-en.js"></script>
+            <script src="__STATIC__/index/lib/js/jquery.slimscroll.min.js"></script>
+            <script src="__STATIC__/index/lib/js/Chart.min.js"></script>
+            <script src="__STATIC__/index/lib/js/demo.js"></script>
+    </body>
+    <script type="text/javascript">
+        $(function(){
+            $("input[name='level']").each(function(){
+                if($(this).val()=='{$info.level}'){
+                    $(this).prop("checked",true);
+                }
+            });
+        })
+        function queren(){
+            console.log(12);
+            $('#submit').attr('disabled',true);
+            $.ajax({
+                type:"post",
+                url:"{:url('index')}",
+                data:$('form').serialize(),
+                success:function(data){
+                    console.log(123),
+                    layer.msg(data.msg);
+                    if(data.code){
+                        setTimeout(function(){
+                            location.href=data.url;
+                        },1000);
+                    }else{
+                        $('#submit').removeAttr('disabled');
+                    }
+                    return false;
+                }
+            })
+            return false;
+        }
+       
+    </script>
+
+</html>

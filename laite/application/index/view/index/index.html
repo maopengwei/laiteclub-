@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{$Think.lang.laitejulebu}</title>
+    <!-- 手机样式标签 -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="__STATIC__/index/lib/css/bootstrap.min.css" />
+    <!-- Font 文件 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Ionicons图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- jvectormap地图插件 -->
+    <link rel="stylesheet" type="text/css" href="__STATIC__/index/lib/css/jquery-jvectormap-1.2.2.css" />
+    <!-- 本地样式文件-->
+    <link rel="stylesheet" type="text/css" href="__STATIC__/index/sheetstyle/AdminLTE.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/index/lib/css/_all-skins.min.css" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/index/sheetstyle/index.css" />
+    <style type="text/css">
+
+    </style>
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        <!-- Left side column. contains the logo and sidebar -->
+        {include file="layout/navigation" /}
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>{$Think.lang.laitejulebu}</h1>
+                <ol class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-dashboard"></i> {$Think.lang.shouye}</a></li>
+                </ol>
+            </section>
+            <!-- Main content -->
+            <section class="content">
+                <!-- Info boxes -->
+                <div class="row">
+                    <div class="col-lg-3 col-xs-6">
+                        <!-- small box -->
+                        <div class="small-box bg-aqua">
+                            <div class="inner">
+                                <h3>{$info.detail.litecoin_wallet}</h3>
+                                <p> {$Think.lang.laitebi}</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-bag"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-xs-6">
+                        <!-- small box -->
+                        <div class="small-box bg-green">
+                            <div class="inner">
+                                <h3>{$info.detail.aftercoin_wallet}</h3>
+                                <p> {$Think.lang.fuxiaobi}</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-stats-bars"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-xs-6">
+                        <!-- small box -->
+                        <div class="small-box bg-yellow">
+                            <div class="inner">
+                                <h3>{$info.detail.ico_wallet}</h3>
+                                <p>ICO</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-person-add"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-xs-6">
+                        <!-- small box -->
+                        <div class="small-box bg-red">
+                            <div class="inner">
+                                <h3>{$info.detail.stock_wallet}</h3>
+                                <p> {$Think.lang.gufen}</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-pie-graph"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                </div>
+                <!-- TABLE: LATEST ORDERS -->
+                <div class="box box-info col-lg-12">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"> {$Think.lang.xitonggonggao}</h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body table-responsive no-padding">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab_1">
+                                <div class="box-body">
+                                    <div class="callout callout-info"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="box">
+                                            <!-- /.box-header -->
+                                            <div class="box-body">
+                                                <table class="table table-bordered table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>{$Think.lang.bianhao}</th>
+                                                            <th>{$Think.lang.gonggaobiaoti}</th>
+                                                            <th>{$Think.lang.fabushijian}</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {volist name="list" id="v"}
+                                                        <tr>
+                                                            <td>{$v.id}</td>
+                                                            <td class="tanchu"><a href="/index/news/detail.html?id={$v.id}">{$v.title}</a></td>
+                                                            <td>{$v.add_time|date='Y-m-d H:i:s',###}</td>
+                                                        </tr>
+                                                        {/volist}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <!-- /.box-body -->
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12 text-right" style="padding-right: 30px;">
+                                                <nav aria-label="Page navigation">
+                                                    <ul class="pages">
+                                                        {$list->render()}
+                                                    </ul>
+                                                </nav>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                            </div>
+                            <!-- /.tab-pane -->
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+        {include file="layout/footer" /}
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <div class="tab-content">
+                <div class="tab-pane" id="control-sidebar-home-tab">
+                </div>
+                <div class="tab-pane" id="control-sidebar-settings-tab">
+                </div>
+            </div>
+        </aside>
+        <div class="control-sidebar-bg"></div>
+    </div>
+    <!--弹出框-->
+    <div class="box">
+        
+
+    </div>
+
+    <script src="__STATIC__/index/lib/js/jquery-2.2.3.min.js"></script>
+    <script src="__STATIC__/index/lib/js/bootstrap.min.js"></script>
+    <script src="__STATIC__/index/lib/js/fastclick.js"></script>
+    <script src="__STATIC__/index/lib/js/app.min.js"></script>
+    <script src="__STATIC__/index/lib/js/jquery.sparkline.min.js"></script>
+    <script src="__STATIC__/index/lib/js/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="__STATIC__/index/lib/js/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="__STATIC__/index/lib/js/jquery.slimscroll.min.js"></script>
+    <script src="__STATIC__/index/lib/js/Chart.min.js"></script>
+    <script src="__STATIC__/index/lib/js/demo.js"></script>
+</body>
+
+</html>

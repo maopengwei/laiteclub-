@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{$Think.lang.laitejulebu}|{$Think.lang.zhuce}</title>
+    
+    <link rel="stylesheet" type="text/css" href="__STATIC__/index/login/css/default.css">
+    
+    <!--必要样式-->
+    <link rel="stylesheet" type="text/css" href="__STATIC__/index/login/css/styles.css">
+    <!--[if IE]>
+        <script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+    <![endif]-->
+    <style>
+        body .login{
+            height: 600px;
+            padding: 50px 40px 40px 40px;
+        }
+        .send-code{
+                position: absolute;
+                top: 5px;
+                right: 30px;
+                width: 80px;
+                height: 26px;
+                font-size: 11px;
+                color: #DC6180;
+                text-align: center;
+                line-height: 26px;
+                border-radius: 20px;
+                font-family: "微软雅黑";
+                border:2px solid #DC6180;
+                cursor:pointer;
+        }
+        .send-code:hover{
+            background: #DC6180;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="forget">
+        
+    </div>
+    <div class="bgimg">
+        <img src="__STATIC__/index/login/img/bgimg.png" />
+    </div>
+    <div class='login'>
+      <div class='login_title'>
+        <img src="__STATIC__/index/login/img/title.png" />
+      </div>
+      <div class='login_fields' >
+        <div class='login_fields__user'>
+        <form class="register">
+
+          <div class='icon'>
+            <img src='__STATIC__/index/login/img/user_icon_copy.png' style="margin-left: 3px;">
+          </div>
+          <input placeholder='{$Think.lang.yonghuming}' name="user" type='text'>
+            <div class='validation'>
+              <img src='__STATIC__/index/login/img/tick.png'>
+            </div>
+            <div class="user-title" style="position: absolute;z-index: 100;right: 40px;bottom: -28px;color: #ddd;font-size:12px;color:#ddd">
+                <span style="color: #aaa"> -- {$Think.lang.tuijianren}ID</span> 
+            </div>
+          </input>
+        </div>
+         <div class='login_fields__password'>
+          <div class='icon'>
+            <img src='__STATIC__/index/login/img/gopeople.png' style="width: 16px;height: 18px;">
+          </div>
+          <input value="{$info['user']}" type='text' disabled>
+          <input name="pid" value="{$info['id']}" type='hidden'>
+          <div class='validation'>
+            <img src='__STATIC__/index/login/img/tick.png'>
+          </div>
+          
+        </div>
+        <div class='login_fields__password'>
+          <div class='icon'>
+            <img src='__STATIC__/index/login/img/phone.png' style="width: 17px;height: 20px;">
+          </div>
+          <input placeholder='{$Think.lang.shoujihao}' name="phone" type='text'>
+          <div class='validation'>
+            <img src='__STATIC__/index/login/img/tick.png'>
+          </div>
+        </div>
+
+        <div class='login_fields__password'>
+          <div class='icon'>
+            <img src='__STATIC__/index/login/img/emile.png' style="width: 16px;height: 18px;">
+          </div>
+          <input placeholder='{$Think.lang.huiyuanxingming}' name="theme" type='text'>
+          <div class='validation'>
+            <img src='__STATIC__/index/login/img/tick.png'>
+          </div>
+        </div>
+
+        <div class='login_fields__password'>
+          <div class='icon'>
+            <img src='__STATIC__/index/login/img/emile.png' style="width: 16px;height: 18px;">
+          </div>
+          <input placeholder='{$Think.lang.shenfenzheng}/{$Think.lang.huzhao}' name="identity" type='text'>
+          <div class='validation'>
+            <img src='__STATIC__/index/login/img/tick.png'>
+          </div>
+        </div>
+        <div class='login_fields__password'>
+          <div class='icon'>
+            <img src='__STATIC__/index/login/img/emile.png' style="width: 16px;height: 18px;">
+          </div>
+          <input placeholder='{$Think.lang.dianziyouxiang}' name="email" type='text'>
+          <div class='validation'>
+            <img src='__STATIC__/index/login/img/tick.png'>
+          </div>
+        </div>
+       
+        <div class='login_fields__password'>
+          <div class='icon'>
+            <img src='__STATIC__/index/login/img/lock_icon_copy.png' style="margin-left: 3px;">
+          </div>
+          <input placeholder='{$Think.lang.denglumima}' name="user_pass" type='password'>
+          <div class='validation'>
+            <img src='__STATIC__/index/login/img/tick.png'>
+          </div>
+        </div>
+        <div class='login_fields__password'>
+          <div class='icon'>
+            <img src='__STATIC__/index/login/img/lock_icon_copy.png' style="margin-left: 3px;">
+          </div>
+          <input placeholder='{$Think.lang.queren}{$Think.lang.denglumima}' name="pass1" type='password'>
+          <div class='validation'>
+            <img src='__STATIC__/index/login/img/tick.png'>
+          </div>
+        </div>
+        <div class='login_fields__password'>
+          <div class='icon'>
+            <img src='__STATIC__/index/login/img/lock_icon_copy.png' style="margin-left: 3px;">
+          </div>
+          <input placeholder='{$Think.lang.anquanmima}' name="second_pass" type='password'>
+          <div class='validation'>
+            <img src='__STATIC__/index/login/img/tick.png'>
+          </div>
+        </div>
+        <div class='login_fields__password'>
+          <div class='icon'>
+            <img src='__STATIC__/index/login/img/lock_icon_copy.png' style="margin-left: 3px;">
+          </div>
+          <input placeholder='{$Think.lang.queren}{$Think.lang.anquanmima}' name="pass2" type='password'>
+          <div class='validation'>
+            <img src='__STATIC__/index/login/img/tick.png'>
+          </div>
+        </div>
+        <div class='login_fields__password'>
+          <div class='icon'>
+            <img src='__STATIC__/index/login/img/code.png' style="width: 18px;height: 20px;">
+          </div>
+          <input placeholder='{$Think.lang.yanzhengma}' name="note_code" type='text'>
+          <div class="send-code huoqu"   onclick="gain()">{$Think.lang.fasongyanzhengma}</div>
+          <div class='validation'>
+            <img src='__STATIC__/index/login/img/tick.png'>
+          </div>
+
+        </div>
+        <div class='login_fields__submit'>
+          <input type='submit' onclick="return register()" value='{$Think.lang.zhuce}'>
+        </div>
+        </form>
+      </div>
+      <div class='disclaimer'>
+        <p>
+             <b>{$Think.lang.banbenhao}</b> 1.1.0<strong>&copy; 2014-2017 <a href="#">{$Think.lang.laitejulebu}</a>.</strong>
+        </p>
+      </div>
+    </div>
+    <div class='authent'>
+    </div>
+    
+    <script type="text/javascript" src='__STATIC__/index/login/js/stopExecutionOnTimeout.js?t=1'></script>
+    <script type="text/javascript" src="__STATIC__/index/login/js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/mine/layer/layer.js"></script>
+    <script type="text/javascript" src="__STATIC__/index/login/js/jquery-ui.min.js"></script>
+    <script>
+    //获取验证码
+        function gain() {
+            $('.huoqu').removeAttr('onclick');
+            var data = $('input[name="phone"]').val();
+            requestAuthcode($('.huoqu'), data);
+        }
+        //发送手机短信验证码
+        function requestAuthcode(obj, aug) {
+            $.get("/index/login/sendSMS/?mobile=" + aug, function(data) {
+                layer.msg(data.msg);
+                if (data['status'] == 'failed') {
+                    $(".huoqu").attr('onclick', 'gain()');
+                } else {
+                    countDown(obj, 60, '{$Think.lang.fasongyanzhengma}', '{$Think.lang.miaohouhuoqu}');
+                }
+            },"json");
+        }
+        //验证码60秒递减
+        function countDown(obj, sec, oritxt, info) {
+            if (sec == 0) {
+                obj.text(oritxt);
+                obj.attr('onClick', 'gain()');
+            } else {
+                obj.text(sec + info);
+                sec--;
+                setTimeout(function() {
+                    countDown(obj, sec, oritxt, info);
+                }, 1000);
+            }
+        }
+        //注册提交
+        function register(){
+            console.log(12);
+            $('#chongzhi').removeAttr('onclick');
+            $.ajax({
+                type:"post",
+                url:"{:url('register')}",
+                data:$('.register').serialize(),
+                success:function(data){
+                    console.log(data);
+                    layer.msg(data.msg);
+                    if(data.code){
+                        setTimeout(function(){
+                            location.href =data.url;
+                        },1000)
+                    }else{
+                        $("#chongzhi").attr('onclick', 'return forget()');
+                    }
+                }
+            })
+             return false;
+        }
+    </script>
+</body>
+</html>
